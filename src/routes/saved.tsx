@@ -4,6 +4,8 @@ import { LOCATIONS, MOCK_DISCLAIMER } from "@/lib/locations";
 import { useFavorites } from "@/lib/favorites";
 import { ScorePill } from "@/components/score-bar";
 import { FavoriteButton } from "@/components/favorite-button";
+import { useI18n } from "@/lib/i18n";
+import { ReadAloud } from "@/components/voice-input";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({
@@ -23,22 +25,25 @@ export const Route = createFileRoute("/saved")({
 });
 
 function SavedPage() {
+  const { t } = useI18n();
   const { favorites, clearFavorites } = useFavorites();
   const savedLocations = LOCATIONS.filter((l) => favorites.includes(l.slug));
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div id="main-content" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Bookmark className="h-5 w-5" aria-hidden="true" />
           </span>
           <div>
-            <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Saved locations</h1>
+            <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">{t("saved.title")}</h1>
             <p className="text-sm text-muted-foreground">
               {savedLocations.length === 0
-                ? "No saved locations yet — save any location to see it here."
-                : `${savedLocations.length} ${savedLocations.length === 1 ? "location" : "locations"} saved. Stored locally on this device.`}
+                ? t("saved.subtitleEmpty")
+                : savedLocations.length === 1
+                  ? t("saved.subtitleCount", { count: 1 })
+                  : t("saved.subtitleCount_plural", { count: savedLocations.length })}
             </p>
           </div>
         </div>
@@ -49,7 +54,7 @@ function SavedPage() {
               className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-semibold text-foreground hover:bg-accent"
             >
               <GitCompareArrows className="h-4 w-4" aria-hidden="true" />
-              Compare
+              {t("saved.compare")}
             </Link>
             <button
               type="button"
@@ -57,7 +62,7 @@ function SavedPage() {
               className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
             >
               <Trash2 className="h-4 w-4" aria-hidden="true" />
-              Clear all
+              {t("saved.clearAll")}
             </button>
           </div>
         )}
@@ -66,15 +71,15 @@ function SavedPage() {
       {savedLocations.length === 0 ? (
         <div className="mt-10 rounded-xl border border-dashed border-border p-10 text-center">
           <Bookmark className="mx-auto h-8 w-8 text-muted-foreground" aria-hidden="true" />
-          <p className="mt-3 text-sm font-medium text-foreground">No saved locations</p>
+          <p className="mt-3 text-sm font-medium text-foreground">{t("saved.emptyTitle")}</p>
           <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-            Tap the heart icon on any location card or profile to save it. Saved items stay on this device and are used to power quick comparison and alerts.
+            {t("saved.emptyDesc")}
           </p>
           <Link
             to="/"
             className="mt-5 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Explore locations
+            {t("saved.explore")}
           </Link>
         </div>
       ) : (
@@ -102,14 +107,14 @@ function SavedPage() {
                   params={{ slug: loc.slug }}
                   className="inline-flex items-center justify-center rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
                 >
-                  View profile
+                  {t("saved.viewProfile")}
                 </Link>
                 <Link
                   to="/insight/$slug/$category"
                   params={{ slug: loc.slug, category: "publicSafety" }}
                   className="text-xs font-medium text-primary hover:underline"
                 >
-                  Intelligence
+                  {t("saved.intelligence")}
                 </Link>
               </div>
             </div>

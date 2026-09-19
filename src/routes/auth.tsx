@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
+import { useI18n } from "@/lib/i18n";
+import { ReadAloud } from "@/components/voice-input";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -14,6 +16,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  const { t } = useI18n();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -24,10 +27,10 @@ function AuthPage() {
 
   if (user) {
     return (
-      <div className="mx-auto max-w-md px-4 py-16 text-center">
-        <p className="text-sm text-muted-foreground">Signed in as {user.email}</p>
-        <button onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }} className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Sign out</button>
-        <Link to="/" className="ml-2 text-sm text-primary hover:underline">Go home</Link>
+      <div id="main-content" className="mx-auto max-w-md px-4 py-16 text-center">
+        <p className="text-sm text-muted-foreground">{t("auth.signedInAs", { email: user.email ?? "" })}</p>
+        <button onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }} className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">{t("auth.signOut")}</button>
+        <Link to="/" className="ml-2 text-sm text-primary hover:underline">{t("auth.goHome")}</Link>
       </div>
     );
   }
@@ -54,24 +57,25 @@ function AuthPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md px-4 py-10 sm:px-6">
-      <h1 className="font-display text-2xl font-bold">{mode === "signin" ? "Sign in" : "Create account"}</h1>
-      <p className="mt-1 text-sm text-muted-foreground">Sync saved locations and reports across devices. Demo uses Supabase Auth — no email is shared.</p>
+    <div id="main-content" className="mx-auto max-w-md px-4 py-10 sm:px-6">
+      <h1 className="font-display text-2xl font-bold">{mode === "signin" ? t("auth.signIn") : t("auth.createAccount")}</h1>
+      <p className="mt-1 text-sm text-muted-foreground">{t("auth.subtitle")}</p>
+      <div className="mt-2"><ReadAloud text={`${mode === "signin" ? t("auth.signIn") : t("auth.createAccount")} ${t("auth.subtitle")}`} /></div>
       <form onSubmit={submit} className="mt-6 space-y-4 rounded-xl border border-border bg-card p-6 shadow-sm">
         <label className="block text-xs font-medium text-muted-foreground">
-          Email
+          {t("auth.email")}
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="you@example.com" />
         </label>
         <label className="block text-xs font-medium text-muted-foreground">
-          Password
+          {t("auth.password")}
           <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="••••••••" minLength={6} />
         </label>
         {msg && <p className="rounded-md bg-muted px-3 py-2 text-xs text-foreground">{msg}</p>}
         <button type="submit" disabled={loading} className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-60 hover:bg-primary/90">
-          {loading ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+          {loading ? t("auth.pleaseWait") : mode === "signin" ? t("auth.signIn") : t("auth.createAccount")}
         </button>
         <button type="button" onClick={() => setMode(mode === "signin" ? "signup" : "signin")} className="w-full text-xs text-primary hover:underline">
-          {mode === "signin" ? "Need an account? Create one" : "Already have an account? Sign in"}
+          {mode === "signin" ? t("auth.needAccount") : t("auth.haveAccount")}
         </button>
       </form>
     </div>

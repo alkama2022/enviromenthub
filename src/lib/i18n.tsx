@@ -10,6 +10,8 @@ import enEnvironment from "@/locales/en/environment.json";
 import enAbout from "@/locales/en/about.json";
 import enGovernment from "@/locales/en/government.json";
 import enCompare from "@/locales/en/compare.json";
+import enSaved from "@/locales/en/saved.json";
+import enAuth from "@/locales/en/auth.json";
 
 import haCommon from "@/locales/ha/common.json";
 import haHome from "@/locales/ha/home.json";
@@ -20,6 +22,8 @@ import haEnvironment from "@/locales/ha/environment.json";
 import haAbout from "@/locales/ha/about.json";
 import haGovernment from "@/locales/ha/government.json";
 import haCompare from "@/locales/ha/compare.json";
+import haSaved from "@/locales/ha/saved.json";
+import haAuth from "@/locales/ha/auth.json";
 
 import yoCommon from "@/locales/yo/common.json";
 import yoHome from "@/locales/yo/home.json";
@@ -30,6 +34,8 @@ import yoEnvironment from "@/locales/yo/environment.json";
 import yoAbout from "@/locales/yo/about.json";
 import yoGovernment from "@/locales/yo/government.json";
 import yoCompare from "@/locales/yo/compare.json";
+import yoSaved from "@/locales/yo/saved.json";
+import yoAuth from "@/locales/yo/auth.json";
 
 import igCommon from "@/locales/ig/common.json";
 import igHome from "@/locales/ig/home.json";
@@ -40,6 +46,8 @@ import igEnvironment from "@/locales/ig/environment.json";
 import igAbout from "@/locales/ig/about.json";
 import igGovernment from "@/locales/ig/government.json";
 import igCompare from "@/locales/ig/compare.json";
+import igSaved from "@/locales/ig/saved.json";
+import igAuth from "@/locales/ig/auth.json";
 
 import pcmCommon from "@/locales/pcm/common.json";
 import pcmHome from "@/locales/pcm/home.json";
@@ -50,6 +58,8 @@ import pcmEnvironment from "@/locales/pcm/environment.json";
 import pcmAbout from "@/locales/pcm/about.json";
 import pcmGovernment from "@/locales/pcm/government.json";
 import pcmCompare from "@/locales/pcm/compare.json";
+import pcmSaved from "@/locales/pcm/saved.json";
+import pcmAuth from "@/locales/pcm/auth.json";
 
 import arCommon from "@/locales/ar/common.json";
 import arHome from "@/locales/ar/home.json";
@@ -60,6 +70,8 @@ import arEnvironment from "@/locales/ar/environment.json";
 import arAbout from "@/locales/ar/about.json";
 import arGovernment from "@/locales/ar/government.json";
 import arCompare from "@/locales/ar/compare.json";
+import arSaved from "@/locales/ar/saved.json";
+import arAuth from "@/locales/ar/auth.json";
 
 // --- Language config ---
 export type Lang = "en" | "ha" | "yo" | "ig" | "pcm" | "ar";
@@ -100,12 +112,12 @@ function mergeNamespaces(...namespaces: Record<string, unknown>[]): Record<strin
 
 type Dict = Record<string, unknown>;
 const DICTS: Record<Lang, Dict> = {
-  en: { common: enCommon, home: enHome, search: enSearch, location: enLocation, healthcare: enHealthcare, environment: enEnvironment },
-  ha: { common: haCommon, home: haHome, search: haSearch, location: haLocation, healthcare: haHealthcare, environment: haEnvironment },
-  yo: { common: yoCommon, home: yoHome, search: yoSearch, location: yoLocation, healthcare: yoHealthcare, environment: yoEnvironment },
-  ig: { common: igCommon, home: igHome, search: igSearch, location: igLocation, healthcare: igHealthcare, environment: igEnvironment },
-  pcm: { common: pcmCommon, home: pcmHome, search: pcmSearch, location: pcmLocation, healthcare: pcmHealthcare, environment: pcmEnvironment },
-  ar: { common: enCommon, home: enHome, search: enSearch, location: enLocation, healthcare: enHealthcare, environment: enEnvironment }, // fallback until ar translations added
+  en: { common: enCommon, home: enHome, search: enSearch, location: enLocation, healthcare: enHealthcare, environment: enEnvironment, about: enAbout, government: enGovernment, compare: enCompare, saved: enSaved, auth: enAuth },
+  ha: { common: haCommon, home: haHome, search: haSearch, location: haLocation, healthcare: haHealthcare, environment: haEnvironment, about: haAbout, government: haGovernment, compare: haCompare, saved: haSaved, auth: haAuth },
+  yo: { common: yoCommon, home: yoHome, search: yoSearch, location: yoLocation, healthcare: yoHealthcare, environment: yoEnvironment, about: yoAbout, government: yoGovernment, compare: yoCompare, saved: yoSaved, auth: yoAuth },
+  ig: { common: igCommon, home: igHome, search: igSearch, location: igLocation, healthcare: igHealthcare, environment: igEnvironment, about: igAbout, government: igGovernment, compare: igCompare, saved: igSaved, auth: igAuth },
+  pcm: { common: pcmCommon, home: pcmHome, search: pcmSearch, location: pcmLocation, healthcare: pcmHealthcare, environment: pcmEnvironment, about: pcmAbout, government: pcmGovernment, compare: pcmCompare, saved: pcmSaved, auth: pcmAuth },
+  ar: { common: arCommon, home: arHome, search: arSearch, location: arLocation, healthcare: arHealthcare, environment: arEnvironment, about: arAbout, government: arGovernment, compare: arCompare, saved: arSaved, auth: arAuth },
 };
 
 // Legacy flat keys for backward compat (old code used t("search"))

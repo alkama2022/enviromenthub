@@ -24,6 +24,8 @@ import { LOCATIONS, MOCK_DISCLAIMER, type TrendChange } from "@/lib/locations";
 import { ChangeBadge, ScorePill } from "@/components/score-bar";
 import { GovernmentMap } from "@/components/interactive-map";
 import { AlertSubscribeButton } from "@/components/alert-subscribe-button";
+import { useI18n } from "@/lib/i18n";
+import { ReadAloud } from "@/components/voice-input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/government")({
@@ -92,6 +94,7 @@ interface AlertItem {
 }
 
 function GovernmentPage() {
+  const { t } = useI18n();
   const [metric, setMetric] = useState<string>("all");
   const [period, setPeriod] = useState<string>("6");
   const [incidentType, setIncidentType] = useState<string>("All types");
@@ -155,21 +158,21 @@ function GovernmentPage() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div id="main-content" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Landmark className="h-5 w-5" aria-hidden="true" />
         </span>
         <div>
           <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-            Government Intelligence Dashboard
+            {t("government.title")}
           </h1>
           <p className="text-sm text-muted-foreground">
-            Regional monitoring for planning, emergency response and environmental
-            management — aggregated area data only.
+            {t("government.subtitle")}
           </p>
         </div>
       </div>
+      <div className="mt-3"><ReadAloud text={`${t("government.title")} ${t("government.subtitle")}`} /></div>
 
       {/* Summary cards */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

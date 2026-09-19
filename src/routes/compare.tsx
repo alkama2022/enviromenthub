@@ -18,6 +18,8 @@ import {
   type CategoryKey,
 } from "@/lib/locations";
 import { ScorePill } from "@/components/score-bar";
+import { useI18n } from "@/lib/i18n";
+import { ReadAloud } from "@/components/voice-input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/compare")({
@@ -61,6 +63,7 @@ const SHORT_LABELS: Record<CategoryKey, string> = {
 const LOC_COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)"];
 
 function ComparePage() {
+  const { t } = useI18n();
   const { slugs } = Route.useSearch();
   const navigate = useNavigate({ from: "/compare" });
   const initial = slugs ? slugs.split(",").filter(Boolean).slice(0, 3) : ["wuse-2-abuja", "ikeja-lagos"];
@@ -124,20 +127,21 @@ function ComparePage() {
   const bestOverall = Math.max(...locations.map((l) => l.overallScore), 0);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div id="main-content" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <GitCompareArrows className="h-5 w-5" aria-hidden="true" />
         </span>
         <div>
           <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-            Compare locations
+            {t("compare.title")}
           </h1>
           <p className="text-sm text-muted-foreground">
-            Side-by-side environmental intelligence for up to three locations.
+            {t("compare.subtitle")}
           </p>
         </div>
       </div>
+      <div className="mt-3"><ReadAloud text={`${t("compare.title")} ${t("compare.subtitle")}`} /></div>
 
       {/* Actions */}
       <div className="mt-4 flex flex-wrap gap-2">

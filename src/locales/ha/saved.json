@@ -1,0 +1,13 @@
+{
+  "title": "Saved locations",
+  "subtitleEmpty": "No saved locations yet — save any location to see it here.",
+  "subtitleCount": "{{count}} location saved. Stored locally on this device.",
+  "subtitleCount_plural": "{{count}} locations saved. Stored locally on this device.",
+  "compare": "Compare",
+  "clearAll": "Clear all",
+  "emptyTitle": "No saved locations",
+  "emptyDesc": "Tap the heart icon on any location card or profile to save it. Saved items stay on this device and are used to power quick comparison and alerts.",
+  "explore": "Explore locations",
+  "viewProfile": "View profile",
+  "intelligence": "Intelligence"
+}

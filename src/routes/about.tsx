@@ -8,6 +8,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { MOCK_DISCLAIMER } from "@/lib/locations";
+import { useI18n } from "@/lib/i18n";
+import { ReadAloud } from "@/components/voice-input";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -70,47 +72,44 @@ const SOURCES = [
 ];
 
 function AboutPage() {
+  const { t } = useI18n();
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div id="main-content" className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <BookOpenCheck className="h-5 w-5" aria-hidden="true" />
         </span>
         <div>
           <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-            Methodology &amp; ethics
+            {t("about.title")}
           </h1>
           <p className="text-sm text-muted-foreground">
-            How scores are built, where data comes from, and the rules we never break.
+            {t("about.subtitle")}
           </p>
         </div>
+      </div>
+      <div className="mt-3">
+        <ReadAloud text={`${t("about.title")} ${t("about.subtitle")}`} />
       </div>
 
       {/* Scoring */}
       <section aria-labelledby="scoring" className="mt-10 rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
         <h2 id="scoring" className="flex items-center gap-2 font-display text-xl font-bold">
           <Gauge className="h-5 w-5 text-primary" aria-hidden="true" />
-          How scoring works
+          {t("about.scoring.title")}
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Each location receives ten category scores (0–100): public safety,
-          healthcare access, weather &amp; climate, business potential,
-          infrastructure, environment, transportation, education, economic
-          activity and tourism. Category scores combine the underlying data
-          points shown on each profile — facility counts, incident trends,
-          hazard exposure, coverage percentages — normalised across the
-          monitored locations. The overall environment score is a weighted
-          blend of all ten categories.
+          {t("about.scoring.p1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          The Personal Decision Assistant re-weights those same category scores
-          for your goal. A business query leans on economic activity,
-          infrastructure and transport; a health query leans on healthcare
-          access, environment and climate. The underlying data never changes —
-          only the weights do.
+          {t("about.scoring.p2")}
         </p>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
-          {SCORING_BANDS.map((band) => (
+          {[
+            { range: "72 – 100", label: t("about.scoring.bands.strong"), text: t("about.scoring.bands.strongDesc"), tone: "bg-score-high" },
+            { range: "55 – 71", label: t("about.scoring.bands.workable"), text: t("about.scoring.bands.workableDesc"), tone: "bg-score-mid" },
+            { range: "0 – 54", label: t("about.scoring.bands.atRisk"), text: t("about.scoring.bands.atRiskDesc"), tone: "bg-score-low" },
+          ].map((band) => (
             <div key={band.range} className="rounded-lg border border-border bg-muted/40 p-4">
               <span className={cnTone(band.tone)}>{band.range}</span>
               <p className="mt-2 text-sm font-bold text-foreground">{band.label}</p>
@@ -124,10 +123,16 @@ function AboutPage() {
       <section aria-labelledby="ethics" className="mt-6 rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
         <h2 id="ethics" className="flex items-center gap-2 font-display text-xl font-bold">
           <Scale className="h-5 w-5 text-primary" aria-hidden="true" />
-          Ethical guidelines
+          {t("about.ethics.title")}
         </h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          {ETHICS_RULES.map((rule) => (
+          {[
+            { title: t("about.ethics.placesNeverPeople.title"), text: t("about.ethics.placesNeverPeople.text") },
+            { title: t("about.ethics.noPrediction.title"), text: t("about.ethics.noPrediction.text") },
+            { title: t("about.ethics.noDiscrimination.title"), text: t("about.ethics.noDiscrimination.text") },
+            { title: t("about.ethics.transparent.title"), text: t("about.ethics.transparent.text") },
+            { title: t("about.ethics.aiExplains.title"), text: t("about.ethics.aiExplains.text") },
+          ].map((rule) => (
             <div key={rule.title} className="rounded-lg border border-border bg-muted/40 p-4">
               <p className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -143,12 +148,10 @@ function AboutPage() {
       <section aria-labelledby="sources" className="mt-6 rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
         <h2 id="sources" className="flex items-center gap-2 font-display text-xl font-bold">
           <Database className="h-5 w-5 text-primary" aria-hidden="true" />
-          Data sources
+          {t("about.sources.title")}
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          In production, TerraLens aggregates publicly available and authorised
-          data from source families like these. Every data point in the
-          interface carries its source family and reference date.
+          {t("about.sources.p")}
         </p>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
           {SOURCES.map((s) => (
