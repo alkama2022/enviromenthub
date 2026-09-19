@@ -14,16 +14,20 @@ export default defineConfig({
       // Keep custom SSR entry that wraps the TanStack handler (src/server.ts)
       server: { entry: "server" },
     }),
-    // Nitro handles SSR output. Cloudflare preset keeps previous Lovable output layout
-    // (dist/server + dist/client) for compatibility with Wrangler.
-    nitro({
-      preset: "cloudflare-module",
-      output: {
-        dir: "dist",
-        serverDir: "dist/server",
-        publicDir: "dist/client",
-      },
-    }),
+    // Nitro handles SSR output. Use `vercel` preset on Vercel, `cloudflare-module` elsewhere
+    // (Cloudflare keeps dist/server + dist/client for Wrangler compatibility).
+    nitro(
+      process.env.VERCEL
+        ? { preset: "vercel" }
+        : {
+            preset: "cloudflare-module",
+            output: {
+              dir: "dist",
+              serverDir: "dist/server",
+              publicDir: "dist/client",
+            },
+          },
+    ),
     viteReact(),
   ],
   resolve: {
