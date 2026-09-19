@@ -137,7 +137,7 @@ async function callGateway(query: string, apiKey: string): Promise<unknown | nul
  * interpreter when AI is unavailable so search always works.
  */
 export const interpretQuery = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => z.object({ query: z.string().min(1).max(400) }).parse(data))
+  .validator((data: unknown) => z.object({ query: z.string().min(1).max(400) }).parse(data))
   .handler(async ({ data }): Promise<StructuredQuery> => {
     const fallback = interpretQueryLocally(data.query);
     const apiKey = process.env["AI_GATEWAY_API_KEY"] ?? process.env["OPENAI_API_KEY"];

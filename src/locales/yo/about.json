@@ -1,0 +1,38 @@
+{
+  "title": "Methodology & ethics",
+  "subtitle": "How scores are built, where data comes from, and the rules we never break.",
+  "scoring": {
+    "title": "How scoring works",
+    "p1": "Each location receives ten category scores (0–100): public safety, healthcare access, weather & climate, business potential, infrastructure, environment, transportation, education, economic activity and tourism.",
+    "p2": "The Personal Decision Assistant re-weights those same category scores for your goal. A business query leans on economic activity, infrastructure and transport; a health query leans on healthcare access, environment and climate. The underlying data never changes — only the weights do.",
+    "bands": {
+      "strong": "Strong",
+      "strongDesc": "Conditions are favourable. Advantages outweigh challenges for most goals.",
+      "workable": "Workable",
+      "workableDesc": "Usable with caveats. Specific challenges should be planned around.",
+      "atRisk": "At risk",
+      "atRiskDesc": "Significant gaps or hazards. Decisions here need careful justification."
+    }
+  },
+  "ethics": {
+    "title": "Ethical guidelines",
+    "placesNeverPeople": { "title": "Places, never people", "text": "TerraLens analyses environmental patterns in locations. It does not identify, profile, score or label individuals." },
+    "noPrediction": { "title": "No criminal prediction", "text": "Public safety scores are built only from aggregated, verified incident counts." },
+    "noDiscrimination": { "title": "No proxy discrimination", "text": "Appearance, ethnicity, neighbourhood demographics are never inputs." },
+    "transparent": { "title": "Transparent sourcing", "text": "Every data point carries a source and a date. Where data is unreliable, the interface says so." },
+    "aiExplains": { "title": "AI explains itself", "text": "Every score ships with a plain-language explanation citing the underlying data." }
+  },
+  "sources": {
+    "title": "Data sources",
+    "p": "In production, TerraLens aggregates publicly available and authorised data from source families like these. Every data point carries its source and date.",
+    "list": [
+      "National statistics (population, economic activity, cost of living)",
+      "State emergency management (flooding, fire, response coverage)",
+      "Open geographic data (hospitals, schools, businesses, roads)",
+      "Meteorological services (weather, seasonal climate)",
+      "Environmental agencies (air quality, water, waste)",
+      "Telecom registries (network availability)"
+    ],
+    "disclaimer": "Demo disclaimer: All figures are simulated sample data. Scores illustrate methodology and must not be used for real decisions."
+  }
+}

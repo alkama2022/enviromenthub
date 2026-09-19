@@ -1,0 +1,15 @@
+{
+  "title": "Compare locations",
+  "subtitle": "Side-by-side environmental intelligence for up to three locations.",
+  "copyLink": "Copy share link",
+  "copied": "Copied!",
+  "exportCsv": "Export CSV",
+  "print": "Print / PDF",
+  "highest": "Highest overall",
+  "categoryProfile": "Category profile",
+  "allTen": "All ten category scores, overlaid.",
+  "scoreByCategory": "Score by category",
+  "bestHighlighted": "Best score in each row is highlighted.",
+  "keyFacts": "Key facts",
+  "select": "Select at least one location to start comparing."
+}

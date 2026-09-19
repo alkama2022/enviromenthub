@@ -7,6 +7,9 @@ import enSearch from "@/locales/en/search.json";
 import enLocation from "@/locales/en/location.json";
 import enHealthcare from "@/locales/en/healthcare.json";
 import enEnvironment from "@/locales/en/environment.json";
+import enAbout from "@/locales/en/about.json";
+import enGovernment from "@/locales/en/government.json";
+import enCompare from "@/locales/en/compare.json";
 
 import haCommon from "@/locales/ha/common.json";
 import haHome from "@/locales/ha/home.json";
@@ -14,6 +17,9 @@ import haSearch from "@/locales/ha/search.json";
 import haLocation from "@/locales/ha/location.json";
 import haHealthcare from "@/locales/ha/healthcare.json";
 import haEnvironment from "@/locales/ha/environment.json";
+import haAbout from "@/locales/ha/about.json";
+import haGovernment from "@/locales/ha/government.json";
+import haCompare from "@/locales/ha/compare.json";
 
 import yoCommon from "@/locales/yo/common.json";
 import yoHome from "@/locales/yo/home.json";
@@ -21,6 +27,9 @@ import yoSearch from "@/locales/yo/search.json";
 import yoLocation from "@/locales/yo/location.json";
 import yoHealthcare from "@/locales/yo/healthcare.json";
 import yoEnvironment from "@/locales/yo/environment.json";
+import yoAbout from "@/locales/yo/about.json";
+import yoGovernment from "@/locales/yo/government.json";
+import yoCompare from "@/locales/yo/compare.json";
 
 import igCommon from "@/locales/ig/common.json";
 import igHome from "@/locales/ig/home.json";
@@ -28,6 +37,9 @@ import igSearch from "@/locales/ig/search.json";
 import igLocation from "@/locales/ig/location.json";
 import igHealthcare from "@/locales/ig/healthcare.json";
 import igEnvironment from "@/locales/ig/environment.json";
+import igAbout from "@/locales/ig/about.json";
+import igGovernment from "@/locales/ig/government.json";
+import igCompare from "@/locales/ig/compare.json";
 
 import pcmCommon from "@/locales/pcm/common.json";
 import pcmHome from "@/locales/pcm/home.json";
@@ -35,6 +47,19 @@ import pcmSearch from "@/locales/pcm/search.json";
 import pcmLocation from "@/locales/pcm/location.json";
 import pcmHealthcare from "@/locales/pcm/healthcare.json";
 import pcmEnvironment from "@/locales/pcm/environment.json";
+import pcmAbout from "@/locales/pcm/about.json";
+import pcmGovernment from "@/locales/pcm/government.json";
+import pcmCompare from "@/locales/pcm/compare.json";
+
+import arCommon from "@/locales/ar/common.json";
+import arHome from "@/locales/ar/home.json";
+import arSearch from "@/locales/ar/search.json";
+import arLocation from "@/locales/ar/location.json";
+import arHealthcare from "@/locales/ar/healthcare.json";
+import arEnvironment from "@/locales/ar/environment.json";
+import arAbout from "@/locales/ar/about.json";
+import arGovernment from "@/locales/ar/government.json";
+import arCompare from "@/locales/ar/compare.json";
 
 // --- Language config ---
 export type Lang = "en" | "ha" | "yo" | "ig" | "pcm" | "ar";

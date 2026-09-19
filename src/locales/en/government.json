@@ -1,0 +1,34 @@
+{
+  "title": "Government Intelligence Dashboard",
+  "subtitle": "Regional monitoring for planning, emergency response and environmental management — aggregated area data only.",
+  "cards": {
+    "monitored": "Monitored locations",
+    "flagged": "Areas flagged for attention",
+    "critical": "Critical alerts",
+    "reports": "Incident reports (Aug, all areas)"
+  },
+  "filters": {
+    "metric": "Metric",
+    "period": "Time period",
+    "incidentType": "Incident type",
+    "allMetrics": "All metrics",
+    "last6": "Last 6 months",
+    "last3": "Last 3 months"
+  },
+  "map": {
+    "title": "National environmental intelligence map",
+    "subtitle": "Pins coloured by the most severe active flag. Select a pin for details.",
+    "fallback": "Show schematic fallback",
+    "critical": "Critical flag",
+    "warning": "Warning flag",
+    "ok": "No active flags"
+  },
+  "flagged": {
+    "title": "Flagged areas",
+    "subtitle": "Areas requiring attention, based on aggregated incident and environmental data — not individuals.",
+    "noFlags": "No flags match the selected metric filter."
+  },
+  "trends": { "title": "Incident trends by location", "subtitle": "Aggregated monthly incident reports." },
+  "incidents": { "title": "Incident breakdown" },
+  "disclaimer": "This dashboard detects patterns in places — hotspots, sudden increases, response gaps. It does not identify, predict or label individuals."
+}

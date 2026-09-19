@@ -8,7 +8,7 @@ export const apiListLocations = createServerFn({ method: "GET" }).handler(async 
 });
 
 export const apiGetLocation = createServerFn({ method: "GET" })
-  .inputValidator((data: unknown) => {
+  .validator((data: unknown) => {
     const slug = (data as { slug?: unknown })?.slug;
     if (typeof slug !== "string" || !slug) throw new Error("slug required");
     return { slug };
@@ -20,7 +20,7 @@ export const apiGetLocation = createServerFn({ method: "GET" })
   });
 
 export const apiPlacesForLocation = createServerFn({ method: "GET" })
-  .inputValidator((data: unknown) => {
+  .validator((data: unknown) => {
     const slug = (data as { slug?: unknown })?.slug;
     if (typeof slug !== "string" || !slug) throw new Error("slug required");
     return { slug };
