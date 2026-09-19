@@ -12,11 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BusinessRouteImport } from './routes/business'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as GovernmentRouteImport } from './routes/government'
 import { Route as HealthcareRouteImport } from './routes/healthcare'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as LocationSlugRouteImport } from './routes/location.$slug'
 import { Route as InsightSlugCategoryRouteImport } from './routes/insight.$slug.$category'
@@ -36,9 +40,19 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -51,6 +65,11 @@ const DiscoverRoute = DiscoverRouteImport.update({
   path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergencyRoute = EmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovernmentRoute = GovernmentRouteImport.update({
   id: '/government',
   path: '/government',
@@ -59,6 +78,11 @@ const GovernmentRoute = GovernmentRouteImport.update({
 const HealthcareRoute = HealthcareRouteImport.update({
   id: '/healthcare',
   path: '/healthcare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SavedRoute = SavedRouteImport.update({
@@ -81,11 +105,15 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/business': typeof BusinessRoute
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
+  '/emergency': typeof EmergencyRoute
   '/government': typeof GovernmentRoute
   '/healthcare': typeof HealthcareRoute
+  '/help': typeof HelpRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -94,11 +122,15 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/business': typeof BusinessRoute
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
+  '/emergency': typeof EmergencyRoute
   '/government': typeof GovernmentRoute
   '/healthcare': typeof HealthcareRoute
+  '/help': typeof HelpRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -108,11 +140,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/business': typeof BusinessRoute
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
+  '/emergency': typeof EmergencyRoute
   '/government': typeof GovernmentRoute
   '/healthcare': typeof HealthcareRoute
+  '/help': typeof HelpRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -123,11 +159,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/alerts'
     | '/auth'
+    | '/business'
     | '/compare'
     | '/discover'
+    | '/emergency'
     | '/government'
     | '/healthcare'
+    | '/help'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -136,11 +176,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/alerts'
     | '/auth'
+    | '/business'
     | '/compare'
     | '/discover'
+    | '/emergency'
     | '/government'
     | '/healthcare'
+    | '/help'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -149,11 +193,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/alerts'
     | '/auth'
+    | '/business'
     | '/compare'
     | '/discover'
+    | '/emergency'
     | '/government'
     | '/healthcare'
+    | '/help'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -163,11 +211,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  AlertsRoute: typeof AlertsRoute
   AuthRoute: typeof AuthRoute
+  BusinessRoute: typeof BusinessRoute
   CompareRoute: typeof CompareRoute
   DiscoverRoute: typeof DiscoverRoute
+  EmergencyRoute: typeof EmergencyRoute
   GovernmentRoute: typeof GovernmentRoute
   HealthcareRoute: typeof HealthcareRoute
+  HelpRoute: typeof HelpRoute
   SavedRoute: typeof SavedRoute
   LocationSlugRoute: typeof LocationSlugRoute
   InsightSlugCategoryRoute: typeof InsightSlugCategoryRoute
@@ -196,11 +248,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -217,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergency': {
+      id: '/emergency'
+      path: '/emergency'
+      fullPath: '/emergency'
+      preLoaderRoute: typeof EmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/government': {
       id: '/government'
       path: '/government'
@@ -229,6 +302,13 @@ declare module '@tanstack/react-router' {
       path: '/healthcare'
       fullPath: '/healthcare'
       preLoaderRoute: typeof HealthcareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/saved': {
@@ -259,11 +339,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  AlertsRoute: AlertsRoute,
   AuthRoute: AuthRoute,
+  BusinessRoute: BusinessRoute,
   CompareRoute: CompareRoute,
   DiscoverRoute: DiscoverRoute,
+  EmergencyRoute: EmergencyRoute,
   GovernmentRoute: GovernmentRoute,
   HealthcareRoute: HealthcareRoute,
+  HelpRoute: HelpRoute,
   SavedRoute: SavedRoute,
   LocationSlugRoute: LocationSlugRoute,
   InsightSlugCategoryRoute: InsightSlugCategoryRoute,

@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { Hospital, MapPin, Phone, Navigation, Clock, Star, Accessibility, Siren, Search } from "lucide-react";
+import { Hospital, MapPin, Phone, Navigation, Clock, Star, Accessibility, Siren, Search, Share2, Globe } from "lucide-react";
 import { LOCATIONS } from "@/lib/locations";
 import { placesForLocation } from "@/lib/places";
+import { PlaceMap } from "@/components/place-map";
+import { haversineKm, travelMinutes } from "@/lib/category-intel";
 import { useI18n } from "@/lib/i18n";
 import { ReadAloud, VoiceInput } from "@/components/voice-input";
 import { useMutation } from "@tanstack/react-query";
@@ -83,10 +85,18 @@ function HealthcarePage() {
         </div>
       </div>
 
+      {/* Map with layers §6 */}
+      <div className="mt-6 rounded-2xl border border-border bg-card p-4 shadow-sm">
+        <h2 className="mb-3 flex items-center gap-2 text-sm font-bold"><MapPin className="h-4 w-4 text-primary" /> Healthcare map — toggle layers</h2>
+        <PlaceMap places={places} origin={area.coords} />
+        <p className="mt-2 text-[11px] text-muted-foreground">Map shows hospitals, clinics, pharmacies and emergency services. Layers filterable. Tap pin for directions. Data: sample place directory — not a verified registry. For emergencies call 112.</p>
+      </div>
+
       {/* Cards - not table */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {places.map((p) => {
           const isEmergency = p.emergency;
+          const dist = haversineKm(area.coords, p.coords);
           return (
             <article key={p.id} className={`rounded-2xl border bg-card p-5 shadow-sm ${isEmergency ? "border-destructive/30 bg-destructive/5" : "border-border"}`}>
               <div className="flex items-start justify-between gap-2">
@@ -99,14 +109,18 @@ function HealthcarePage() {
               <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
               <div className="mt-3 space-y-1.5 text-xs">
                 <p className="flex items-center gap-1.5 text-muted-foreground"><MapPin className="h-3.5 w-3.5 text-primary" aria-hidden="true" />{p.address}</p>
+                <p className="flex items-center gap-1.5 text-muted-foreground"><Navigation className="h-3.5 w-3.5 text-primary" aria-hidden="true" />{dist.toFixed(1)} km · ~{travelMinutes(dist)} min from {area.name} centre</p>
                 <p className="flex items-center gap-1.5 text-muted-foreground"><Clock className="h-3.5 w-3.5 text-primary" aria-hidden="true" />{p.hours.summary} {isEmergency ? "· Open now" : ""}</p>
                 <p className="flex items-center gap-1.5 text-muted-foreground"><Phone className="h-3.5 w-3.5 text-primary" aria-hidden="true" />{p.phone ?? t("healthcare.card.unknown")}</p>
+                <p className="flex items-center gap-1.5 text-muted-foreground"><Globe className="h-3.5 w-3.5 text-primary" aria-hidden="true" />{p.website ?? "Website unavailable"}</p>
+                <p className="text-[11px] text-muted-foreground">Services: {p.services.join(" · ")}</p>
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
                 <a href={`https://www.google.com/maps/dir/?api=1&destination=${p.coords[0]},${p.coords[1]}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90">
                   <Navigation className="h-3.5 w-3.5" aria-hidden="true" />{t("healthcare.card.directions")}
                 </a>
                 {p.phone && <a href={`tel:${p.phone}`} className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-accent"><Phone className="h-3.5 w-3.5" aria-hidden="true" />{t("healthcare.card.call")}</a>}
+                <a href={`https://wa.me/?text=${encodeURIComponent(`${p.name} — ${p.address} https://www.google.com/maps/dir/?api=1&destination=${p.coords[0]},${p.coords[1]}`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-accent"><Share2 className="h-3.5 w-3.5" /> Share</a>
                 <ReadAloud text={`${p.name} ${p.address} ${p.hours.summary}`} />
               </div>
               <p className="mt-3 text-[11px] text-muted-foreground">Source: {p.source.name} · {p.source.date} · {p.verified}</p>

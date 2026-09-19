@@ -29,6 +29,8 @@ import {
   priceLabel,
   type Place,
 } from "@/lib/places";
+import { PlaceMap } from "@/components/place-map";
+import { track } from "@/lib/analytics";
 import {
   EMERGENCY_NOTICE,
   INTENT_LABELS,
@@ -118,6 +120,7 @@ function DiscoverPage() {
     const text = q.trim();
     if (!text) return;
     setQuery(text);
+    track("discover_query", { q: text.slice(0, 80) });
     mutation.mutate(text);
   };
 
@@ -320,11 +323,18 @@ function DiscoverPage() {
                   different area, widen the filters, or rephrase your question.
                 </div>
               ) : (
-                <div className="space-y-4">
-                  {filtered.map((rec, i) => (
-                    <ResultCard key={rec.place.id} rec={rec} rank={i + 1} />
-                  ))}
-                </div>
+                <>
+                  <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+                    <h3 className="mb-3 flex items-center gap-2 text-sm font-bold"><MapPin className="h-4 w-4 text-primary" /> Map — tap layers to filter</h3>
+                    <PlaceMap places={filtered.map(f => f.place)} origin={origin} />
+                    <p className="mt-2 text-[11px] text-muted-foreground">Map markers are interactive — tap for address, hours, directions, save/share. Data source: sample place directory (demo).</p>
+                  </div>
+                  <div className="space-y-4">
+                    {filtered.map((rec, i) => (
+                      <ResultCard key={rec.place.id} rec={rec} rank={i + 1} />
+                    ))}
+                  </div>
+                </>
               )}
             </>
           )}

@@ -1,0 +1,98 @@
+{
+  "brand": {
+    "name": "Environment Hub",
+    "tagline": "Understand any place before you decide.",
+    "short": "Hub"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "explore": "Explore",
+    "saved": "Saved",
+    "settings": "Settings",
+    "discover": "Ask",
+    "compare": "Compare",
+    "government": "Government",
+    "about": "How it works",
+    "admin": "Admin"
+  },
+  "action": {
+    "search": "Search",
+    "ask": "Ask",
+    "save": "Save",
+    "saved": "Saved",
+    "share": "Share",
+    "call": "Call",
+    "directions": "Directions",
+    "viewDetails": "View details",
+    "tryAgain": "Try again",
+    "goHome": "Go home",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "clear": "Clear",
+    "useMyLocation": "Use my location",
+    "readAloud": "Read aloud",
+    "stopReading": "Stop",
+    "speak": "Speak",
+    "listening": "Listening…",
+    "tapToSpeak": "Tap to speak"
+  },
+  "language": {
+    "label": "Ẹbọ",
+    "english": "English",
+    "hausa": "Hausa",
+    "yoruba": "Yorùbá",
+    "igbo": "Igbo",
+    "pidgin": "Pidgin",
+    "arabic": "Arabic",
+    "igala": "Igala",
+    "select": "Choose language"
+  },
+  "easyMode": {
+    "label": "Easy Mode",
+    "on": "Easy mode on",
+    "off": "Easy mode off",
+    "description": "Bigger text, fewer words, more icons"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "savedCount": "{{count}} saved"
+  },
+  "error": {
+    "title": "Something went wrong.",
+    "description": "We couldn't get this information right now.",
+    "tryAgain": "Try again",
+    "goHome": "Go home"
+  },
+  "loading": {
+    "checkingLocation": "Checking this location…",
+    "gettingWeather": "Getting weather information…",
+    "findingHealthcare": "Finding nearby healthcare…",
+    "preparingReport": "Preparing your location report…",
+    "understanding": "Understanding your question…",
+    "searching": "Searching…"
+  },
+  "empty": {
+    "noResults": "No results found.",
+    "noSaved": "No saved places yet.",
+    "tryDifferent": "Try a different search or area."
+  },
+  "trust": {
+    "verified": "Verified",
+    "estimated": "Estimated",
+    "community": "Community",
+    "unavailable": "Unavailable",
+    "disclaimer": "Information may change. Check the original provider before making important decisions.",
+    "source": "Source",
+    "lastUpdated": "Last updated",
+    "mayBeOutdated": "This information may be incomplete or outdated."
+  },
+  "accessibility": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "increaseText": "Make text bigger",
+    "highContrast": "High contrast"
+  }
+}

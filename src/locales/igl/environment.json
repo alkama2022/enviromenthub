@@ -1,0 +1,32 @@
+{
+  "flooding": {
+    "title": "Flooding",
+    "risk": {
+      "high": "High",
+      "moderate": "Moderate",
+      "low": "Low"
+    },
+    "plain": {
+      "high": "There is a higher possibility of flooding here during heavy rainfall.",
+      "moderate": "Flooding can happen sometimes when rain is very heavy.",
+      "low": "Flooding is not common here, but be careful during very heavy rain."
+    },
+    "whatItMeans": "Low areas and blocked drains fill quickly when rain is heavy.",
+    "whoCareful": "People near rivers, low ground, or poor drainage should be careful.",
+    "whatYouCanDo": "Avoid low-lying roads during heavy rain. Keep drains clear. Follow local alerts."
+  },
+  "air": {
+    "title": "Air quality",
+    "bad": "The air may not be good today.",
+    "moderate": "Air quality is okay for most people.",
+    "good": "Air quality is good today.",
+    "whoCareful": "People with breathing problems, children and older people should be careful.",
+    "whatYouCanDo": "Avoid staying outside for a long time if air is bad. Drink water. Keep windows closed if needed."
+  },
+  "water": {
+    "title": "Water",
+    "available": "Water is generally available here.",
+    "limited": "Water can be limited at times.",
+    "unavailable": "Water information is not available right now."
+  }
+}

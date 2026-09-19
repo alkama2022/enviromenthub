@@ -15,9 +15,12 @@ export function SiteHeader() {
   const NAV_ITEMS = [
     { to: "/", label: t("common.nav.home") },
     { to: "/discover", label: t("common.nav.discover") },
+    { to: "/healthcare", label: "Healthcare" },
+    { to: "/business", label: "Business" },
+    { to: "/help", label: "Help Me Decide" },
     { to: "/compare", label: t("common.nav.compare") },
+    { to: "/emergency", label: "Emergency" },
     { to: "/government", label: t("common.nav.government") },
-    { to: "/about", label: t("common.nav.about") },
   ] as const;
 
   return (

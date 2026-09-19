@@ -101,7 +101,7 @@ export function ReadAloud({ text, langHint }: { text: string; langHint?: string 
   const [speaking, setSpeaking] = useState(false);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  const langMap: Record<string, string> = { en: "en-NG", ha: "ha-NG", yo: "yo-NG", ig: "ig-NG", pcm: "en-NG", ar: "ar-SA" };
+  const langMap: Record<string, string> = { en: "en-NG", ha: "ha-NG", yo: "yo-NG", ig: "ig-NG", igl: "en-NG", pcm: "en-NG", ar: "ar-SA" };
   const voiceLang = langMap[langHint ?? lang] ?? "en-NG";
 
   const toggle = () => {

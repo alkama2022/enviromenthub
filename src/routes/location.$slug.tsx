@@ -16,7 +16,7 @@ import {
 
 
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -33,7 +33,7 @@ import {
 } from "@/lib/locations";
 import { PERSONAS, analyzeSuitability, type PersonaKey } from "@/lib/personas";
 import { ChangeBadge, ScoreBar, ScorePill } from "@/components/score-bar";
-import { SourceBadge } from "@/components/source-badge";
+import { SourceBadge, QualityDot } from "@/components/source-badge";
 import { FavoriteButton } from "@/components/favorite-button";
 import { LocationMiniMap } from "@/components/interactive-map";
 import { LiveEnvironment } from "@/components/live-environment";
@@ -44,17 +44,19 @@ import { PlainScore, SimpleStat } from "@/components/plain-language";
 import { ReadAloud } from "@/components/voice-input";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { Wind, Droplets, Waves, Hospital, Bus, GraduationCap, Store, Home as HomeIcon, Wifi, Banknote, Landmark as CultureIcon, MapPinned, CloudSun, Siren } from "lucide-react";
+import { Wind, Droplets, Waves, Hospital, Bus, GraduationCap, Store, Home as HomeIcon, Wifi, Banknote, Landmark as CultureIcon, MapPinned, CloudSun, Siren, Share2 } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 export const Route = createFileRoute("/location/$slug")({
   head: ({ params }) => {
     const loc = getLocation(params.slug);
     const title = loc
-      ? `${loc.name}, ${loc.state} — Environmental Profile | TerraLens`
-      : "Location not found | TerraLens";
+      ? `Environment Intelligence for ${loc.name}, ${loc.state} | Environment Hub`
+      : "Location not found | Environment Hub";
     const description = loc
       ? `Environmental intelligence profile for ${loc.name}, ${loc.state}: overall score ${loc.overallScore}/100, category scores, safety trends and decision analysis.`
       : "This location is not in the demo dataset.";
+    const url = `https://enviromenthub-tvuv.vercel.app/location/${params.slug}`;
     return {
       meta: [
         { title },
@@ -62,8 +64,11 @@ export const Route = createFileRoute("/location/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "canonical", content: url },
       ],
+      links: [{ rel: "canonical", href: url }],
     };
   },
   component: LocationPage,
@@ -94,6 +99,10 @@ function LocationPage() {
   const { t, easyMode } = useI18n();
   const [persona, setPersona] = useState<PersonaKey>("business");
 
+  useEffect(() => {
+    if (location) track("search", { q: `${location.name}, ${location.state}` });
+  }, [slug, location]);
+
   if (!location) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
@@ -116,8 +125,15 @@ function LocationPage() {
   const suitability = analyzeSuitability(location, persona);
   const activePersona = PERSONAS.find((p) => p.key === persona)!;
 
+  const structuredData = location ? { "@context": "https://schema.org", "@type": "Place", name: `${location.name}, ${location.state}`, geo: { "@type": "GeoCoordinates", latitude: location.coords[0], longitude: location.coords[1] }, description: `${location.tagline} ${location.summary}`, url: `https://enviromenthub-tvuv.vercel.app/location/${location.slug}`, aggregateRating: { "@type": "AggregateRating", ratingValue: String(location.overallScore), bestRating: "100", worstRating: "0" } } : null;
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
+      {/* DEMONSTRATION DATA banner §14 */}
+      <div className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
+        <strong>DEMONSTRATION DATA:</strong> All figures on this page are simulated sample data for demonstration. They do not represent verified real-world measurements. Where data is unavailable we show <span className="rounded bg-white px-1 py-0.5 font-semibold dark:bg-black/20">Data unavailable</span>. Source, date and quality are shown for every metric below. <QualityDot quality="estimated" /> = limited, <QualityDot quality="community" /> = community sample, <QualityDot quality="verified" /> = verified.
+      </div>
       {/* Header */}
       <div className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8 lg:flex-row lg:items-center lg:justify-between">
         <div>
@@ -267,21 +283,21 @@ function LocationPage() {
             <h2 id="intel-sections" className="font-display text-lg font-bold">{t("location.sections.location")} • {t("location.sections.weather")} • {t("location.sections.air")} — Plain overview</h2>
             <p className="mt-1 text-xs text-muted-foreground">Each section: What it is → What it means → Why it matters. Tap for details. <ReadAloud text={`Overview for ${location.name}. Weather, air, water, flooding, healthcare and more explained simply.`} /></p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <SimpleStat icon={MapPin} title={`${t("location.sections.location")}: ${location.name}`} valuePlain={`${location.state}, ${location.country} · ${location.tagline}`} valueTechnical={`${location.coords[0].toFixed(3)}°N, ${location.coords[1].toFixed(3)}°E`} source={`Demo dataset`} trust="community" />
-              <SimpleStat icon={CloudSun} title={t("location.sections.weather")} valuePlain={location.environmentData.find((f) => f.label.includes("Weather"))?.value ?? "Weather information"} valueTechnical={location.categories.find((c) => c.key === "weather")?.explanation} source={location.environmentData.find((f) => f.label.includes("Weather"))?.source.name} trust="estimated" />
-              <SimpleStat icon={Wind} title={t("location.sections.air")} valuePlain={(() => { const v = location.environmentData.find((f) => f.label.includes("Air quality"))?.value ?? ""; if (v.includes("Unhealthy")) return t("environment.air.bad") + " · " + v; if (v.includes("Moderate")) return t("environment.air.moderate") + " · " + v; return t("environment.air.good") + " · " + v; })()} valueTechnical={location.categories.find((c) => c.key === "environment")?.explanation} source={location.environmentData.find((f) => f.label.includes("Air quality"))?.source.name} trust="estimated" />
-              <SimpleStat icon={Droplets} title={t("location.sections.water")} valuePlain={location.environmentData.find((f) => f.label.includes("Water"))?.value ?? t("environment.water.available")} valueTechnical={location.environmentData.find((f) => f.label.includes("Water"))?.note} source={location.environmentData.find((f) => f.label.includes("Water"))?.source.name} trust="estimated" />
-              <SimpleStat icon={Waves} title={t("location.sections.flooding")} valuePlain={(() => { const v = location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.value ?? ""; if (/High/i.test(v)) return t("environment.flooding.plain.high"); if (/Moderate/i.test(v)) return t("environment.flooding.plain.moderate"); return t("environment.flooding.plain.low"); })()} valueTechnical={location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.value + (location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.note ? " — " + location.environmentData.find((f) => /Flood|erosion/i.test(f.label))!.note : "")} source={location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.source.name} trust="verified" />
-              <SimpleStat icon={Hospital} title={t("location.sections.healthcare")} valuePlain={`${location.quickFacts.find((f) => /Hospitals/i.test(f.label))?.value ?? "Healthcare information"} — ${location.categories.find((c) => c.key === "healthcare")?.explanation.slice(0,120) ?? ""}`} source={location.quickFacts.find((f) => /Hospitals/i.test(f.label))?.source.name} trust="community" />
-              <SimpleStat icon={Siren} title={t("location.sections.emergency")} valuePlain={`Emergency services: ${location.categories.find((c) => c.key === "publicSafety")?.explanation.slice(0,110) ?? "Aggregated safety data only"}`} source="Sample feed" trust="verified" />
-              <SimpleStat icon={Bus} title={t("location.sections.transportation")} valuePlain={location.categories.find((c) => c.key === "transportation")?.explanation ?? "Transport information"} source="OpenStreetMap" trust="community" />
-              <SimpleStat icon={GraduationCap} title={t("location.sections.education")} valuePlain={`${location.quickFacts.find((f) => /Schools/i.test(f.label))?.value ?? ""} — ${location.categories.find((c) => c.key === "education")?.explanation.slice(0,110) ?? ""}`} source={location.quickFacts.find((f) => /Schools/i.test(f.label))?.source.name} trust="community" />
-              <SimpleStat icon={Store} title={t("location.sections.businesses")} valuePlain={`${location.quickFacts.find((f) => /Registered businesses/i.test(f.label))?.value ?? ""} — ${location.categories.find((c) => c.key === "business")?.explanation.slice(0,110) ?? ""}`} source={location.quickFacts.find((f) => /Registered businesses/i.test(f.label))?.source.name} trust="estimated" />
-              <SimpleStat icon={HomeIcon} title={t("location.sections.housing")} valuePlain={location.quickFacts.find((f) => /rent/i.test(f.label))?.value ?? "Housing information where available"} valueTechnical={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.value} source={location.quickFacts.find((f) => /rent/i.test(f.label))?.source.name} trust="estimated" />
-              <SimpleStat icon={Wifi} title={t("location.sections.connectivity")} valuePlain={location.quickFacts.find((f) => /coverage/i.test(f.label))?.value ?? "Connectivity information"} source={location.quickFacts.find((f) => /coverage/i.test(f.label))?.source.name} trust="estimated" />
-              <SimpleStat icon={Banknote} title={t("location.sections.cost")} valuePlain={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.value ?? "Cost information"} valueTechnical={location.quickFacts.find((f) => /rent/i.test(f.label))?.value} source={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.source.name} trust="estimated" />
-              <SimpleStat icon={CultureIcon} title={t("location.sections.culture")} valuePlain={`${location.categories.find((c) => c.key === "tourism")?.explanation.slice(0,120) ?? "Local cultural information"}`} source="Sample dataset" trust="community" />
-              <SimpleStat icon={MapPinned} title={t("location.sections.tourism")} valuePlain={`${location.categories.find((c) => c.key === "tourism")?.explanation.slice(0,130) ?? "Tourism information"}`} source="Sample dataset" trust="community" />
+              <SimpleStat icon={MapPin} title={`${t("location.sections.location")}: ${location.name}`} valuePlain={`${location.state}, ${location.country} · ${location.tagline}`} valueTechnical={`${location.coords[0].toFixed(3)}°N, ${location.coords[1].toFixed(3)}°E`} source={`Demo dataset`} trust="community" quality="community" why="Location and administrative boundary from demo dataset — not a surveyed cadastral record. Use for orientation only." updatedAt="Aug 2026" />
+              <SimpleStat icon={CloudSun} title={t("location.sections.weather")} valuePlain={location.environmentData.find((f) => f.label.includes("Weather"))?.value ?? "Weather information"} valueTechnical={location.categories.find((c) => c.key === "weather")?.explanation} source={location.environmentData.find((f) => f.label.includes("Weather"))?.source.name} trust="estimated" quality="estimated" why="Weather is aggregated from sample meteorological feed; live temperature from open-meteo is shown above when available." updatedAt={location.environmentData.find((f) => f.label.includes("Weather"))?.source.date ?? "Aug 2026"} />
+              <SimpleStat icon={Wind} title={t("location.sections.air")} valuePlain={(() => { const v = location.environmentData.find((f) => f.label.includes("Air quality"))?.value ?? ""; if (v.includes("Unhealthy")) return t("environment.air.bad") + " · " + v; if (v.includes("Moderate")) return t("environment.air.moderate") + " · " + v; return t("environment.air.good") + " · " + v; })()} valueTechnical={location.categories.find((c) => c.key === "environment")?.explanation} source={location.environmentData.find((f) => f.label.includes("Air quality"))?.source.name} trust="estimated" quality="estimated" why="AQI is sample environmental data, not a calibrated sensor reading. Check live environment box for experimental live temperature." updatedAt={location.environmentData.find((f) => f.label.includes("Air quality"))?.source.date ?? "Aug 2026"} />
+              <SimpleStat icon={Droplets} title={t("location.sections.water")} valuePlain={location.environmentData.find((f) => f.label.includes("Water"))?.value ?? t("environment.water.available")} valueTechnical={location.environmentData.find((f) => f.label.includes("Water"))?.note} source={location.environmentData.find((f) => f.label.includes("Water"))?.source.name} trust="estimated" quality="estimated" why="Household water access is sample survey estimate. Confirm with local water board before planning." updatedAt={location.environmentData.find((f) => f.label.includes("Water"))?.source.date ?? "Jul 2026"} />
+              <SimpleStat icon={Waves} title={t("location.sections.flooding")} valuePlain={(() => { const v = location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.value ?? ""; if (/High/i.test(v)) return t("environment.flooding.plain.high"); if (/Moderate/i.test(v)) return t("environment.flooding.plain.moderate"); return t("environment.flooding.plain.low"); })()} valueTechnical={location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.value + (location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.note ? " — " + location.environmentData.find((f) => /Flood|erosion/i.test(f.label))!.note : "")} source={location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.source.name} trust="verified" quality="verified" why="Flood/erosion flag is derived from SEMA sample feed + rainfall + historical flood plain. Do not use as evacuation advice." updatedAt={location.environmentData.find((f) => /Flood|erosion/i.test(f.label))?.source.date ?? "Aug 2026"} />
+              <SimpleStat icon={Hospital} title={t("location.sections.healthcare")} valuePlain={`${location.quickFacts.find((f) => /Hospitals/i.test(f.label))?.value ?? "Healthcare information"} — ${location.categories.find((c) => c.key === "healthcare")?.explanation.slice(0,120) ?? ""}`} source={location.quickFacts.find((f) => /Hospitals/i.test(f.label))?.source.name} trust="community" quality="community" why="Healthcare count is OSM POI extract sample, not a verified registry. Always call facility before travel." updatedAt={location.quickFacts.find((f) => /Hospitals/i.test(f.label))?.source.date ?? "Jul 2026"} />
+              <SimpleStat icon={Siren} title={t("location.sections.emergency")} valuePlain={`Emergency services: ${location.categories.find((c) => c.key === "publicSafety")?.explanation.slice(0,110) ?? "Aggregated safety data only"}`} source="Sample feed" trust="verified" quality="estimated" why="Aggregated incident counts only — never individual profiling. For emergencies call 112." updatedAt="Q2 2026" />
+              <SimpleStat icon={Bus} title={t("location.sections.transportation")} valuePlain={location.categories.find((c) => c.key === "transportation")?.explanation ?? "Transport information"} source="OpenStreetMap" trust="community" quality="community" why="Transport is OSM road/bus sample + congestion estimate. Check live traffic before travel." updatedAt="Jul 2026" />
+              <SimpleStat icon={GraduationCap} title={t("location.sections.education")} valuePlain={`${location.quickFacts.find((f) => /Schools/i.test(f.label))?.value ?? ""} — ${location.categories.find((c) => c.key === "education")?.explanation.slice(0,110) ?? ""}`} source={location.quickFacts.find((f) => /Schools/i.test(f.label))?.source.name} trust="community" quality="community" why="School count from OSM POI sample. Contact ministry for enrollment eligibility." updatedAt={location.quickFacts.find((f) => /Schools/i.test(f.label))?.source.date ?? "Jul 2026"} />
+              <SimpleStat icon={Store} title={t("location.sections.businesses")} valuePlain={`${location.quickFacts.find((f) => /Registered businesses/i.test(f.label))?.value ?? ""} — ${location.categories.find((c) => c.key === "business")?.explanation.slice(0,110) ?? ""}`} source={location.quickFacts.find((f) => /Registered businesses/i.test(f.label))?.source.name} trust="estimated" quality="estimated" why="Business registrations are NBS sample estimates — not a guarantee of opportunity. Investigate locally." updatedAt={location.quickFacts.find((f) => /Registered businesses/i.test(f.label))?.source.date ?? "May 2026"} />
+              <SimpleStat icon={HomeIcon} title={t("location.sections.housing")} valuePlain={location.quickFacts.find((f) => /rent/i.test(f.label))?.value ?? "Housing information where available"} valueTechnical={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.value} source={location.quickFacts.find((f) => /rent/i.test(f.label))?.source.name} trust="estimated" quality="estimated" why="Rent/cost are NBS sample index. Market prices vary by street — verify locally." updatedAt={location.quickFacts.find((f) => /rent/i.test(f.label))?.source.date ?? "Jun 2026"} />
+              <SimpleStat icon={Wifi} title={t("location.sections.connectivity")} valuePlain={location.quickFacts.find((f) => /coverage/i.test(f.label))?.value ?? "Connectivity information"} source={location.quickFacts.find((f) => /coverage/i.test(f.label))?.source.name} trust="estimated" quality="estimated" why="Coverage is telecom registry sample. Test signal on-site before committing." updatedAt={location.quickFacts.find((f) => /coverage/i.test(f.label))?.source.date ?? "Jul 2026"} />
+              <SimpleStat icon={Banknote} title={t("location.sections.cost")} valuePlain={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.value ?? "Cost information"} valueTechnical={location.quickFacts.find((f) => /rent/i.test(f.label))?.value} source={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.source.name} trust="estimated" quality="estimated" why="Cost index is sample; not a price quote. Confirm current prices locally." updatedAt={location.quickFacts.find((f) => /Cost of living/i.test(f.label))?.source.date ?? "Jun 2026"} />
+              <SimpleStat icon={CultureIcon} title={t("location.sections.culture")} valuePlain={`${location.categories.find((c) => c.key === "tourism")?.explanation.slice(0,120) ?? "Local cultural information"}`} source="Sample dataset" trust="community" quality="community" why="Tourism is sample cultural dataset. Check current opening/events before visiting." updatedAt="Aug 2026" />
+              <SimpleStat icon={MapPinned} title={t("location.sections.tourism")} valuePlain={`${location.categories.find((c) => c.key === "tourism")?.explanation.slice(0,130) ?? "Tourism information"}`} source="Sample dataset" trust="community" quality="community" why="Tourism info is sample. Verify safety and access before travel." updatedAt="Aug 2026" />
             </div>
             <p className="mt-4 rounded-lg bg-secondary/50 px-3 py-2 text-xs text-muted-foreground">{t("common.trust.disclaimer")} — {t("common.trust.mayBeOutdated")}</p>
           </section>
@@ -659,8 +675,16 @@ function LocationPage() {
           }}
           className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium hover:bg-accent"
         >
-          Copy link
+          <Share2 className="h-3.5 w-3.5" aria-hidden="true" /> Copy link
         </button>
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(`${location.name}, ${location.state} — Environment Hub: ${typeof window !== "undefined" ? window.location.origin + "/location/" + location.slug : ""}`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-white hover:bg-[#1da851]"
+        >
+          Share on WhatsApp
+        </a>
       </div>
 
       <div className="mt-8">

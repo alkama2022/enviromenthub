@@ -91,6 +91,9 @@ export function SimpleStat({
   note,
   source,
   trust,
+  quality,
+  why,
+  updatedAt,
 }: {
   icon: typeof Wind;
   title: string;
@@ -99,24 +102,49 @@ export function SimpleStat({
   note?: string;
   source?: string;
   trust?: string;
+  quality?: "verified" | "estimated" | "community" | "unavailable";
+  why?: string;
+  updatedAt?: string;
 }) {
+  const dot = quality === "verified" ? "🟢" : quality === "unavailable" ? "⚪" : quality ? "🟡" : null;
+  const qualityLabel = quality === "verified" ? "Verified" : quality === "estimated" ? "Estimated" : quality === "community" ? "Community" : quality === "unavailable" ? "Unavailable" : null;
   return (
     <div className="rounded-xl border border-border bg-card p-4">
-      <div className="flex items-center gap-2 text-sm font-bold text-foreground">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-          <Icon className="h-4 w-4" aria-hidden="true" />
+      <div className="flex items-center justify-between gap-2">
+        <span className="flex items-center gap-2 text-sm font-bold text-foreground">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Icon className="h-4 w-4" aria-hidden="true" />
+          </span>
+          {title}
         </span>
-        {title}
+        {why ? (
+          <span className="group relative inline-flex">
+            <button type="button" className="rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-semibold text-muted-foreground hover:bg-accent" aria-label={`Why: ${title}`}>
+              ⓘ Why?
+            </button>
+            <span className="pointer-events-none absolute right-0 top-full z-10 mt-1 hidden w-56 rounded-lg border border-border bg-popover p-2 text-xs leading-relaxed text-popover-foreground shadow-lg group-hover:block group-focus-within:block">
+              {why}
+            </span>
+          </span>
+        ) : null}
       </div>
       <p className="mt-2 text-sm font-medium text-foreground">{valuePlain}</p>
       {valueTechnical && <p className="mt-1 text-xs text-muted-foreground">{valueTechnical}</p>}
       {note && <p className="mt-1 text-xs text-muted-foreground">{note}</p>}
-      {(source || trust) && (
-        <p className="mt-2 flex flex-wrap gap-1 text-[11px] text-muted-foreground">
-          {trust && <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase">{trust}</span>}
+      {(source || trust || quality) && (
+        <div className="mt-2 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
+          {dot && qualityLabel ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase">
+              <span aria-hidden="true">{dot}</span> {qualityLabel}
+            </span>
+          ) : trust ? (
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase">{trust}</span>
+          ) : null}
           {source && <span>Source: {source}</span>}
-        </p>
+          {updatedAt && <span>· {updatedAt}</span>}
+        </div>
       )}
+      {why ? <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">Why: {why}</p> : null}
     </div>
   );
 }

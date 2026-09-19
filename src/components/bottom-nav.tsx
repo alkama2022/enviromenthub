@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Search, MapPinned, Heart, Settings, Sparkles } from "lucide-react";
+import { Home, MapPinned, Heart, Hospital, Landmark, Sparkles } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useFavorites } from "@/lib/favorites";
 
@@ -11,9 +11,9 @@ export function BottomNav() {
   const items = [
     { to: "/", icon: Home, label: t("common.nav.home"), active: pathname === "/" },
     { to: "/discover", icon: Sparkles, label: t("common.nav.discover"), active: pathname.startsWith("/discover") },
-    { to: "/compare", icon: MapPinned, label: t("common.nav.explore"), active: pathname.startsWith("/compare") || pathname.startsWith("/location") },
+    { to: "/healthcare", icon: Hospital, label: "Care", active: pathname.startsWith("/healthcare") || pathname.startsWith("/emergency") },
+    { to: "/help", icon: MapPinned, label: "Decide", active: pathname.startsWith("/help") || pathname.startsWith("/business") },
     { to: "/saved", icon: Heart, label: t("common.nav.saved"), active: pathname.startsWith("/saved"), badge: count },
-    { to: "/about", icon: Settings, label: t("common.nav.settings"), active: pathname.startsWith("/about") || pathname.startsWith("/government") },
   ] as const;
 
   return (

@@ -1,22 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bookmark, MapPin, Trash2, GitCompareArrows } from "lucide-react";
+import { Bookmark, MapPin, Trash2, GitCompareArrows, Home as HomeIcon, Briefcase, CloudSun, Hospital, Bus, AlertTriangle } from "lucide-react";
 import { LOCATIONS, MOCK_DISCLAIMER } from "@/lib/locations";
 import { useFavorites } from "@/lib/favorites";
 import { ScorePill } from "@/components/score-bar";
 import { FavoriteButton } from "@/components/favorite-button";
 import { useI18n } from "@/lib/i18n";
 import { ReadAloud } from "@/components/voice-input";
+import { LiveEnvironment } from "@/components/live-environment";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({
     meta: [
-      { title: "Saved Locations | TerraLens" },
+      { title: "My Environment — Saved Locations | Environment Hub" },
       {
         name: "description",
-        content: "Your saved locations in TerraLens — quick access to the environmental intelligence profiles you care about.",
+        content: "My Environment — your saved locations with weather, healthcare and alerts. Your personal hub for places you care about.",
       },
-      { property: "og:title", content: "Saved Locations | TerraLens" },
-      { property: "og:description", content: "Your saved locations in TerraLens." },
+      { property: "og:title", content: "My Environment — Environment Hub" },
+      { property: "og:description", content: "Your saved locations, home and work updates." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,7 +32,8 @@ function SavedPage() {
 
   return (
     <div id="main-content" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-xs text-muted-foreground"><strong>My Environment</strong> — Your personal hub. Save locations (Home/Work) to see weather, nearby healthcare, alerts and transport at a glance. Privacy: only you see your saved places.</div>
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Bookmark className="h-5 w-5" aria-hidden="true" />
@@ -83,6 +85,7 @@ function SavedPage() {
           </Link>
         </div>
       ) : (
+        <>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {savedLocations.map((loc) => (
             <div
@@ -120,6 +123,38 @@ function SavedPage() {
             </div>
           ))}
         </div>
+        {savedLocations.length>0 && (
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-xl border border-border bg-card p-5">
+              <h3 className="flex items-center gap-2 font-bold"><HomeIcon className="h-4 w-4 text-primary" /> Home — {savedLocations[0]!.name}</h3>
+              <div className="mt-3"><LiveEnvironment coords={savedLocations[0]!.coords} fallbackAqi={savedLocations[0]!.environmentData.find(f=>f.label.includes("Air quality"))?.value ?? "—"} /></div>
+              <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                <li className="flex items-center gap-1.5"><Hospital className="h-3.5 w-3.5 text-primary" /> Nearby healthcare: {savedLocations[0]!.quickFacts.find(f=>f.label.includes("Hospitals"))?.value}</li>
+                <li className="flex items-center gap-1.5"><Bus className="h-3.5 w-3.5 text-primary" /> Transport: {savedLocations[0]!.categories.find(c=>c.key==="transportation")?.explanation.slice(0,80)}</li>
+                <li className="flex items-center gap-1.5"><AlertTriangle className="h-3.5 w-3.5 text-primary" /> Flag: {savedLocations[0]!.trends.find(t=>t.severity!=="info")?.label ?? "No active flags"} — {savedLocations[0]!.trends.find(t=>t.severity!=="info")?.reason.slice(0,90)}</li>
+              </ul>
+            </div>
+            {savedLocations[1] ? (
+              <div className="rounded-xl border border-border bg-card p-5">
+                <h3 className="flex items-center gap-2 font-bold"><Briefcase className="h-4 w-4 text-primary" /> Work — {savedLocations[1]!.name}</h3>
+                <div className="mt-3"><LiveEnvironment coords={savedLocations[1]!.coords} fallbackAqi={savedLocations[1]!.environmentData.find(f=>f.label.includes("Air quality"))?.value ?? "—"} /></div>
+                <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                  <li className="flex items-center gap-1.5"><CloudSun className="h-3.5 w-3.5 text-primary" /> Environment: {savedLocations[1]!.environmentData.find(f=>f.label.includes("Weather"))?.value}</li>
+                  <li className="flex items-center gap-1.5"><Hospital className="h-3.5 w-3.5 text-primary" /> Healthcare: {savedLocations[1]!.quickFacts.find(f=>f.label.includes("Hospitals"))?.value}</li>
+                  <li className="flex items-center gap-1.5"><Bus className="h-3.5 w-3.5 text-primary" /> {savedLocations[1]!.categories.find(c=>c.key==="transportation")?.explanation.slice(0,80)}</li>
+                </ul>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed border-border p-5 text-center">
+                <Briefcase className="mx-auto h-6 w-6 text-muted-foreground" />
+                <p className="mt-2 text-sm font-medium">Add a Work location</p>
+                <p className="mt-1 text-xs text-muted-foreground">Save a second place to track Home and Work side by side.</p>
+                <Link to="/" className="mt-3 inline-flex rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground">Browse places</Link>
+              </div>
+            )}
+          </div>
+        )}
+        </>
       )}
 
       <p className="mt-8 rounded-lg border border-border bg-muted/50 px-4 py-3 text-center text-xs text-muted-foreground">

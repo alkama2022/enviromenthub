@@ -25,6 +25,7 @@ import { ChangeBadge, ScorePill } from "@/components/score-bar";
 import { GovernmentMap } from "@/components/interactive-map";
 import { AlertSubscribeButton } from "@/components/alert-subscribe-button";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 import { ReadAloud } from "@/components/voice-input";
 import { cn } from "@/lib/utils";
 
@@ -95,6 +96,7 @@ interface AlertItem {
 
 function GovernmentPage() {
   const { t } = useI18n();
+  const { user } = useAuth();
   const [metric, setMetric] = useState<string>("all");
   const [period, setPeriod] = useState<string>("6");
   const [incidentType, setIncidentType] = useState<string>("All types");
@@ -173,6 +175,12 @@ function GovernmentPage() {
         </div>
       </div>
       <div className="mt-3"><ReadAloud text={`${t("government.title")} ${t("government.subtitle")}`} /></div>
+
+      {!user && (
+        <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
+          <strong>Organization access:</strong> You are viewing the public preview. Sign in to access role-based permissions, full reports and moderation tools. Sensitive data is never exposed.
+        </div>
+      )}
 
       {/* Summary cards */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

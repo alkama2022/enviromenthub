@@ -73,8 +73,21 @@ import arCompare from "@/locales/ar/compare.json";
 import arSaved from "@/locales/ar/saved.json";
 import arAuth from "@/locales/ar/auth.json";
 
+import iglCommon from "@/locales/igl/common.json";
+import iglHome from "@/locales/igl/home.json";
+import iglSearch from "@/locales/igl/search.json";
+import iglLocation from "@/locales/igl/location.json";
+import iglHealthcare from "@/locales/igl/healthcare.json";
+import iglEnvironment from "@/locales/igl/environment.json";
+import iglAbout from "@/locales/igl/about.json";
+import iglGovernment from "@/locales/igl/government.json";
+import iglCompare from "@/locales/igl/compare.json";
+import iglSaved from "@/locales/igl/saved.json";
+import iglAuth from "@/locales/igl/auth.json";
+import { track } from "@/lib/analytics";
+
 // --- Language config ---
-export type Lang = "en" | "ha" | "yo" | "ig" | "pcm" | "ar";
+export type Lang = "en" | "ha" | "yo" | "ig" | "pcm" | "ar" | "igl";
 export type Dir = "ltr" | "rtl";
 
 export interface LangMeta {
@@ -90,6 +103,7 @@ const LANGS: LangMeta[] = [
   { value: "ha", label: "Hausa", nativeLabel: "Hausa", dir: "ltr", flag: "🇳🇬" },
   { value: "yo", label: "Yorùbá", nativeLabel: "Yorùbá", dir: "ltr", flag: "🇳🇬" },
   { value: "ig", label: "Igbo", nativeLabel: "Igbo", dir: "ltr", flag: "🇳🇬" },
+  { value: "igl", label: "Igala", nativeLabel: "Igala", dir: "ltr", flag: "🇳🇬" },
   { value: "pcm", label: "Pidgin", nativeLabel: "Pidgin", dir: "ltr", flag: "🇳🇬" },
   // Prepared for RTL - add full translations under src/locales/ar/ to activate
   { value: "ar", label: "Arabic", nativeLabel: "العربية", dir: "rtl", flag: "🇸🇦" },
@@ -116,6 +130,7 @@ const DICTS: Record<Lang, Dict> = {
   ha: { common: haCommon, home: haHome, search: haSearch, location: haLocation, healthcare: haHealthcare, environment: haEnvironment, about: haAbout, government: haGovernment, compare: haCompare, saved: haSaved, auth: haAuth },
   yo: { common: yoCommon, home: yoHome, search: yoSearch, location: yoLocation, healthcare: yoHealthcare, environment: yoEnvironment, about: yoAbout, government: yoGovernment, compare: yoCompare, saved: yoSaved, auth: yoAuth },
   ig: { common: igCommon, home: igHome, search: igSearch, location: igLocation, healthcare: igHealthcare, environment: igEnvironment, about: igAbout, government: igGovernment, compare: igCompare, saved: igSaved, auth: igAuth },
+  igl: { common: iglCommon, home: iglHome, search: iglSearch, location: iglLocation, healthcare: iglHealthcare, environment: iglEnvironment, about: iglAbout, government: iglGovernment, compare: iglCompare, saved: iglSaved, auth: iglAuth },
   pcm: { common: pcmCommon, home: pcmHome, search: pcmSearch, location: pcmLocation, healthcare: pcmHealthcare, environment: pcmEnvironment, about: pcmAbout, government: pcmGovernment, compare: pcmCompare, saved: pcmSaved, auth: pcmAuth },
   ar: { common: arCommon, home: arHome, search: arSearch, location: arLocation, healthcare: arHealthcare, environment: arEnvironment, about: arAbout, government: arGovernment, compare: arCompare, saved: arSaved, auth: arAuth },
 };
@@ -126,6 +141,7 @@ const LEGACY: Record<Lang, Record<string, string>> = {
   ha: { search: "Bincike", ask: "Tambaya", compare: "Kwatanta", government: "Gwamnati", methodology: "Yadda yake aiki", admin: "Gudanarwa", saved: "Ajiye", signin: "Shiga", signout: "Fita" },
   yo: { search: "Wa", ask: "Beere", compare: "Fiwe", government: "Ijọba", methodology: "Bi o ṣe n ṣiṣẹ", admin: "Isakoso", saved: "Fipamọ", signin: "Wọle", signout: "Jade" },
   ig: { search: "Chọọ", ask: "Jụọ", compare: "Tụnyere", government: "Gọọmenti", methodology: "Otu o si arụ ọrụ", admin: "Nlekọta", saved: "Echekwara", signin: "Banye", signout: "Pụọ" },
+  igl: { search: "Lé", ask: "Bí", compare: "Fìwe", government: "Ìjọba", methodology: "Bó tí ṣe ń ṣiṣẹ", admin: "Ìṣàkóso", saved: "Títọ́jú", signin: "Wọlé", signout: "Jáde" },
   pcm: { search: "Find", ask: "Ask", compare: "Compare", government: "Government", methodology: "How we dey do am", admin: "Admin", saved: "Saved", signin: "Enter", signout: "Comot" },
   ar: { search: "بحث", ask: "اسأل", compare: "قارن", government: "الحكومة", methodology: "كيف يعمل", admin: "الإدارة", saved: "محفوظ", signin: "دخول", signout: "خروج" },
 };
@@ -195,6 +211,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(KEY, l);
     } catch {}
+    try { track("language_change", { lang: l }); } catch {}
     applyLang(l);
   };
 
@@ -254,6 +271,7 @@ export function useVoiceLang(): string {
     ha: "ha-NG",
     yo: "yo-NG",
     ig: "ig-NG",
+    igl: "en-NG",
     pcm: "en-NG",
     ar: "ar-SA",
   };
