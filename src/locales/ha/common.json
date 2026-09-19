@@ -1,0 +1,97 @@
+{
+  "brand": {
+    "name": "Cibiyar Muhalli",
+    "tagline": "Ka fahimci kowane wuri kafin ka yanke shawara.",
+    "short": "Hub"
+  },
+  "nav": {
+    "home": "Gida",
+    "search": "Bincike",
+    "explore": "Bincika",
+    "saved": "Ajiye",
+    "settings": "Saiti",
+    "discover": "Tambaya",
+    "compare": "Kwatanta",
+    "government": "Gwamnati",
+    "about": "Yadda yake aiki",
+    "admin": "Gudanarwa"
+  },
+  "action": {
+    "search": "Bincika",
+    "ask": "Tambaya",
+    "save": "Ajiye",
+    "saved": "An ajiye",
+    "share": "Raba",
+    "call": "Kira",
+    "directions": "Hanyoyi",
+    "viewDetails": "Duba cikakken bayani",
+    "tryAgain": "Sake gwadawa",
+    "goHome": "Koma gida",
+    "cancel": "Soke",
+    "confirm": "Tabbatar",
+    "clear": "Share",
+    "useMyLocation": "Yi amfani da wurina",
+    "readAloud": "Karanta da murya",
+    "stopReading": "Dakata",
+    "speak": "Yi magana",
+    "listening": "Ana sauraro…",
+    "tapToSpeak": "Danna don yin magana"
+  },
+  "language": {
+    "label": "Harshe",
+    "english": "Turanci",
+    "hausa": "Hausa",
+    "yoruba": "Yarbanci",
+    "igbo": "Ibo",
+    "pidgin": "Pidgin",
+    "arabic": "Larabci",
+    "select": "Zaɓi harshe"
+  },
+  "easyMode": {
+    "label": "Sauƙi Mode",
+    "on": "Sauƙi yana kunne",
+    "off": "Sauƙi yana kashe",
+    "description": "Manyan rubutu, ƙananan kalmomi, ƙarin hotuna"
+  },
+  "auth": {
+    "signIn": "Shiga",
+    "signOut": "Fita",
+    "savedCount": "{{count}} ajiye"
+  },
+  "error": {
+    "title": "An samu matsala.",
+    "description": "Ba mu samu bayanin ba yanzu.",
+    "tryAgain": "Sake gwadawa",
+    "goHome": "Koma gida"
+  },
+  "loading": {
+    "checkingLocation": "Ana duba wannan wurin…",
+    "gettingWeather": "Ana samo bayanin yanayi…",
+    "findingHealthcare": "Ana nemo asibitoci kusa…",
+    "preparingReport": "Ana shirya rahoton wurin…",
+    "understanding": "Ana fahimtar tambayarka…",
+    "searching": "Ana bincike…"
+  },
+  "empty": {
+    "noResults": "Ba a samu sakamako ba.",
+    "noSaved": "Ba a ajiye wuri ba tukuna.",
+    "tryDifferent": "Gwada wani bincike daban."
+  },
+  "trust": {
+    "verified": "Tabbatacce",
+    "estimated": "Ƙididdiga",
+    "community": "Al'umma",
+    "unavailable": "Babu shi",
+    "disclaimer": "Bayani na iya canzawa. Duba tushen asali kafin yanke muhimmiyar shawara.",
+    "source": "Tushe",
+    "lastUpdated": "Sabuntawa ta ƙarshe",
+    "mayBeOutdated": "Wannan bayanin na iya zama bai cika ba ko ya tsufa."
+  },
+  "accessibility": {
+    "skipToContent": "Tsallake zuwa abun ciki",
+    "openMenu": "Buɗe menu",
+    "closeMenu": "Rufe menu",
+    "increaseText": "Girma rubutu",
+    "highContrast": "Bambancin launi mai ƙarfi"
+  }
+}

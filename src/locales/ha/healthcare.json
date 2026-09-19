@@ -1,0 +1,22 @@
+{
+  "title": "Find Healthcare",
+  "subtitle": "Hospitals, clinics and pharmacies near you — with distance, hours, and directions.",
+  "nearest": "Nearest Hospital",
+  "emergency": "Emergency Help",
+  "emergencyCall": "Call 112 now",
+  "filters": {
+    "hospitals": "Hospitals",
+    "clinics": "Clinics",
+    "pharmacies": "Pharmacies",
+    "emergency": "Emergency"
+  },
+  "card": {
+    "openNow": "Open now",
+    "closedNow": "Closed now",
+    "call": "Call",
+    "directions": "Directions",
+    "services": "Services",
+    "unknown": "Information unavailable"
+  },
+  "disclaimer": "Place records are sample data — always confirm before travelling. In an emergency, call emergency services directly."
+}

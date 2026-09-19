@@ -40,7 +40,11 @@ import { LiveEnvironment } from "@/components/live-environment";
 import { AlertSubscribeButton } from "@/components/alert-subscribe-button";
 import { ReportForm } from "@/components/report-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PlainScore, SimpleStat } from "@/components/plain-language";
+import { ReadAloud } from "@/components/voice-input";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { Wind, Droplets, Waves, Hospital, Bus, GraduationCap, Store, Home as HomeIcon, Wifi, Banknote, Landmark as CultureIcon, MapPinned, CloudSun, Siren } from "lucide-react";
 
 export const Route = createFileRoute("/location/$slug")({
   head: ({ params }) => {
@@ -78,9 +82,16 @@ const SEVERITY_STYLE = {
   info: { icon: Info, classes: "border-chart-2/40 bg-chart-2/10 text-chart-2" },
 } as const;
 
+function plainForScore(score: number, t: (k: string) => string) {
+  if (score >= 72) return { band: "Good", cls: "text-score-high" };
+  if (score >= 55) return { band: "Okay", cls: "text-score-mid" };
+  return { band: "Be careful", cls: "text-score-low" };
+}
+
 function LocationPage() {
   const { slug } = Route.useParams();
   const location = getLocation(slug);
+  const { t, easyMode } = useI18n();
   const [persona, setPersona] = useState<PersonaKey>("business");
 
   if (!location) {
@@ -159,12 +170,64 @@ function LocationPage() {
         </div>
       </div>
 
+      {/* Quick actions for this place - large, simple */}
+      <section className="mt-6" aria-labelledby="quick-actions">
+        <h2 id="quick-actions" className="sr-only">What do you want to know about this place?</h2>
+        <div className={`grid gap-3 ${easyMode ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-2 lg:grid-cols-4"}`}>
+          <Link to="/discover" search={{ q: `Find hospital near ${location.name}` } as any} className="flex min-h-[96px] items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm hover:border-primary/30 hover:shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500 text-white"><Hospital className="h-6 w-6" aria-hidden="true" /></span>
+            <span><span className="block text-sm font-bold">{t("home.actions.findHealthcare.title")}</span><span className="text-xs text-muted-foreground">{location.name}</span></span>
+          </Link>
+          <Link to="/discover" search={{ q: `Emergency help near ${location.name}` } as any} className="flex min-h-[96px] items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 shadow-sm hover:shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white"><Siren className="h-6 w-6" aria-hidden="true" /></span>
+            <span><span className="block text-sm font-bold text-destructive">Emergency</span><span className="text-xs text-muted-foreground">112 · Nearest help</span></span>
+          </Link>
+          <button type="button" onClick={() => document.getElementById("environment-data")?.scrollIntoView({ behavior: "smooth" })} className="flex min-h-[96px] items-center gap-3 rounded-2xl border border-border bg-card p-4 text-left shadow-sm hover:border-primary/30 hover:shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500 text-white"><CloudSun className="h-6 w-6" aria-hidden="true" /></span>
+            <span><span className="block text-sm font-bold">Weather & Air</span><span className="text-xs text-muted-foreground">Today's conditions</span></span>
+          </button>
+          <Link to="/discover" search={{ q: `Business opportunities in ${location.name}` } as any} className="flex min-h-[96px] items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm hover:border-primary/30 hover:shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500 text-white"><Store className="h-6 w-6" aria-hidden="true" /></span>
+            <span><span className="block text-sm font-bold">Business</span><span className="text-xs text-muted-foreground">Opportunities</span></span>
+          </Link>
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <ReadAloud text={`${location.name} ${location.tagline} ${location.summary}`} />
+        </div>
+      </section>
+
+      {/* Plain-language summary - replaces technical score alone */}
+      <section className="mt-6 grid gap-4 lg:grid-cols-2" aria-labelledby="plain-summary">
+        <h2 id="plain-summary" className="sr-only">Plain language summary</h2>
+        <PlainScore
+          score={location.overallScore}
+          title={location.name + " — Overall"}
+          plainHigh="This place looks good overall. Most services and conditions are okay."
+          plainMid="This place is okay. Some things are good, some need attention."
+          plainLow="Be careful. Some conditions here need attention before you decide."
+          whatItMeans={location.summary}
+          whoCareful={location.categories.find((c) => c.score < 55)?.explanation}
+          whatYouCanDo="Check the details below. Talk to local people. Visit in person if you can before making big decisions."
+          source={`All 10 categories · Updated ${location.quickFacts[0]?.source.date ?? "recently"}`}
+          trustLabel="estimated"
+        />
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <h3 className="font-display text-base font-bold">What does the score mean?</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-score-high" aria-hidden="true" /> <span><strong>72–100 Good</strong> — Most things are okay here.</span></li>
+            <li className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-score-mid" aria-hidden="true" /> <span><strong>55–71 Okay</strong> — Mixed. Check details.</span></li>
+            <li className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-score-low" aria-hidden="true" /> <span><strong>0–54 Be careful</strong> — Needs attention.</span></li>
+          </ul>
+          <p className="mt-4 rounded-lg bg-secondary/50 px-3 py-2 text-xs text-muted-foreground">{t("common.trust.disclaimer")}</p>
+        </div>
+      </section>
+
       <Tabs defaultValue="overview" className="mt-8">
         <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 bg-muted/60 p-1">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="twin">Digital Twin</TabsTrigger>
-          <TabsTrigger value="safety">Safety Intelligence</TabsTrigger>
-          <TabsTrigger value="assistant">Decision Assistant</TabsTrigger>
+          <TabsTrigger value="overview">Simple overview</TabsTrigger>
+          <TabsTrigger value="twin">Details</TabsTrigger>
+          <TabsTrigger value="safety">Safety</TabsTrigger>
+          <TabsTrigger value="assistant">Help me decide</TabsTrigger>
         </TabsList>
 
         {/* OVERVIEW */}

@@ -139,4 +139,51 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
+
+  /* Focus visible - accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* High contrast toggle (future) */
+  html.high-contrast {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0 0 0);
+  }
+
+  /* Easy Mode - larger text, reduced density */
+  html.easy-mode {
+    font-size: 18px;
+  }
+  html.easy-mode .easy\:hidden {
+    display: none;
+  }
+
+  /* RTL support */
+  html[dir="rtl"] {
+    direction: rtl;
+  }
+  html[dir="rtl"] body {
+    text-align: right;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Large touch targets - ensure min 44x44 for interactive */
+  @media (pointer: coarse) {
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
 }

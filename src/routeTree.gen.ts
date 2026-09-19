@@ -16,6 +16,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as GovernmentRouteImport } from './routes/government'
+import { Route as HealthcareRouteImport } from './routes/healthcare'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as LocationSlugRouteImport } from './routes/location.$slug'
 import { Route as InsightSlugCategoryRouteImport } from './routes/insight.$slug.$category'
@@ -55,6 +56,11 @@ const GovernmentRoute = GovernmentRouteImport.update({
   path: '/government',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthcareRoute = HealthcareRouteImport.update({
+  id: '/healthcare',
+  path: '/healthcare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
   '/government': typeof GovernmentRoute
+  '/healthcare': typeof HealthcareRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
   '/government': typeof GovernmentRoute
+  '/healthcare': typeof HealthcareRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/discover': typeof DiscoverRoute
   '/government': typeof GovernmentRoute
+  '/healthcare': typeof HealthcareRoute
   '/saved': typeof SavedRoute
   '/location/$slug': typeof LocationSlugRoute
   '/insight/$slug/$category': typeof InsightSlugCategoryRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/discover'
     | '/government'
+    | '/healthcare'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/discover'
     | '/government'
+    | '/healthcare'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/discover'
     | '/government'
+    | '/healthcare'
     | '/saved'
     | '/location/$slug'
     | '/insight/$slug/$category'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   DiscoverRoute: typeof DiscoverRoute
   GovernmentRoute: typeof GovernmentRoute
+  HealthcareRoute: typeof HealthcareRoute
   SavedRoute: typeof SavedRoute
   LocationSlugRoute: typeof LocationSlugRoute
   InsightSlugCategoryRoute: typeof InsightSlugCategoryRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovernmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/healthcare': {
+      id: '/healthcare'
+      path: '/healthcare'
+      fullPath: '/healthcare'
+      preLoaderRoute: typeof HealthcareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   DiscoverRoute: DiscoverRoute,
   GovernmentRoute: GovernmentRoute,
+  HealthcareRoute: HealthcareRoute,
   SavedRoute: SavedRoute,
   LocationSlugRoute: LocationSlugRoute,
   InsightSlugCategoryRoute: InsightSlugCategoryRoute,

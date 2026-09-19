@@ -1,0 +1,97 @@
+{
+  "brand": {
+    "name": "Ebe Gburugburu",
+    "tagline": "Ghọta ebe ọ bụla tupu ị kpebie.",
+    "short": "Hub"
+  },
+  "nav": {
+    "home": "Ụlọ",
+    "search": "Chọọ",
+    "explore": "Chọgharịa",
+    "saved": "Echekwara",
+    "settings": "Ntọala",
+    "discover": "Jụọ",
+    "compare": "Tụnyere",
+    "government": "Gọọmenti",
+    "about": "Otu o si arụ ọrụ",
+    "admin": "Nlekọta"
+  },
+  "action": {
+    "search": "Chọọ",
+    "ask": "Jụọ",
+    "save": "Chekwaa",
+    "saved": "Echekwara",
+    "share": "Kesaa",
+    "call": "Kpọọ",
+    "directions": "Ntuziaka",
+    "viewDetails": "Lee nkọwa zuru ezu",
+    "tryAgain": "Nwaa ọzọ",
+    "goHome": "Laghachi n'ụlọ",
+    "cancel": "Kagbuo",
+    "confirm": "Kwenye",
+    "clear": "Kpochapụ",
+    "useMyLocation": "Jiri ọnọdụ m",
+    "readAloud": "Gụọ n'olu dara ụda",
+    "stopReading": "Kwụsị",
+    "speak": "Kwuo okwu",
+    "listening": "Na-ege ntị…",
+    "tapToSpeak": "Pịa ka ikwu okwu"
+  },
+  "language": {
+    "label": "Asụsụ",
+    "english": "Bekee",
+    "hausa": "Hausa",
+    "yoruba": "Yorùbá",
+    "igbo": "Igbo",
+    "pidgin": "Pidgin",
+    "arabic": "Arabik",
+    "select": "Họrọ asụsụ"
+  },
+  "easyMode": {
+    "label": "Ọnọdụ Dị Mfe",
+    "on": "Ọnọdụ dị mfe dị",
+    "off": "Ọnọdụ dị mfe agbanyụ",
+    "description": "Ederede buru ibu, okwu ole na ole, akara ngosi ọzọ"
+  },
+  "auth": {
+    "signIn": "Banye",
+    "signOut": "Pụọ",
+    "savedCount": "{{count}} echekwara"
+  },
+  "error": {
+    "title": "Ihe adịghị mma.",
+    "description": "Anyị enweghị ike inweta ozi a ugbu a.",
+    "tryAgain": "Nwaa ọzọ",
+    "goHome": "Laghachi n'ụlọ"
+  },
+  "loading": {
+    "checkingLocation": "Na-enyocha ebe a…",
+    "gettingWeather": "Na-enweta ozi ihu igwe…",
+    "findingHealthcare": "Na-achọ ụlọ ọgwụ dị nso…",
+    "preparingReport": "Na-akwadebe akụkọ ebe…",
+    "understanding": "Na-aghọta ajụjụ gị…",
+    "searching": "Na-achọ…"
+  },
+  "empty": {
+    "noResults": "Ahụghị nsonaazụ.",
+    "noSaved": "Enweghị ebe echekwara.",
+    "tryDifferent": "Nwaa nchọta dị iche."
+  },
+  "trust": {
+    "verified": "Ekwenyere",
+    "estimated": "Atụmatụ",
+    "community": "Obodo",
+    "unavailable": "Adịghị",
+    "disclaimer": "Ozi nwere ike ịgbanwe. Lelee isi mmalite tupu ịme mkpebi dị mkpa.",
+    "source": "Isi mmalite",
+    "lastUpdated": "Emelitere ikpeazụ",
+    "mayBeOutdated": "Ozi a nwere ike ezughị oke ma ọ bụ ochie."
+  },
+  "accessibility": {
+    "skipToContent": "Mafee gaa ọdịnaya",
+    "openMenu": "Mepee menu",
+    "closeMenu": "Mechie menu",
+    "increaseText": "Mee ederede ibu",
+    "highContrast": "Ọdịiche dị elu"
+  }
+}

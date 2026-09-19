@@ -1,0 +1,97 @@
+{
+  "brand": {
+    "name": "Ile Iṣẹ Ayika",
+    "tagline": "Loye ibi kan ṣaaju ki o to pinnu.",
+    "short": "Hub"
+  },
+  "nav": {
+    "home": "Ile",
+    "search": "Wa",
+    "explore": "Ṣawari",
+    "saved": "Fipamọ",
+    "settings": "Eto",
+    "discover": "Beere",
+    "compare": "Fiwe",
+    "government": "Ijọba",
+    "about": "Bi o ṣe n ṣiṣẹ",
+    "admin": "Isakoso"
+  },
+  "action": {
+    "search": "Wa",
+    "ask": "Beere",
+    "save": "Fipamọ",
+    "saved": "Ti fipamọ",
+    "share": "Pin",
+    "call": "Pe",
+    "directions": "Itọsọna",
+    "viewDetails": "Wo alaye kikun",
+    "tryAgain": "Gbiyanju lẹẹkansi",
+    "goHome": "Pada si ile",
+    "cancel": "Fagile",
+    "confirm": "Jẹrisi",
+    "clear": "Pa rẹ",
+    "useMyLocation": "Lo ipo mi",
+    "readAloud": "Ka soke",
+    "stopReading": "Duro",
+    "speak": "Sọrọ",
+    "listening": "N gbọ…",
+    "tapToSpeak": "Tẹ lati sọrọ"
+  },
+  "language": {
+    "label": "Ede",
+    "english": "Gẹẹsi",
+    "hausa": "Hausa",
+    "yoruba": "Yorùbá",
+    "igbo": "Igbo",
+    "pidgin": "Pidgin",
+    "arabic": "Larubawa",
+    "select": "Yan ede"
+  },
+  "easyMode": {
+    "label": "Ipo Rọrun",
+    "on": "Ipo rọrun wa lori",
+    "off": "Ipo rọrun wa ni pipa",
+    "description": "Ọrọ nla, ọrọ diẹ, aami diẹ sii"
+  },
+  "auth": {
+    "signIn": "Wọle",
+    "signOut": "Jade",
+    "savedCount": "{{count}} ti fipamọ"
+  },
+  "error": {
+    "title": "Ohun kan ṣẹlẹ.",
+    "description": "A ko le ri alaye yii nisisiyi.",
+    "tryAgain": "Gbiyanju lẹẹkansi",
+    "goHome": "Pada si ile"
+  },
+  "loading": {
+    "checkingLocation": "N ṣayẹwo ibi yii…",
+    "gettingWeather": "N gba alaye oju ọjọ…",
+    "findingHealthcare": "N wa ile-iwosan to sunmọ…",
+    "preparingReport": "N pese ijabọ ibi…",
+    "understanding": "N loye ibeere rẹ…",
+    "searching": "N wa…"
+  },
+  "empty": {
+    "noResults": "A ko ri esi kankan.",
+    "noSaved": "Ko si ibi ti o ti fipamọ sibẹ.",
+    "tryDifferent": "Gbiyanju wiwa miiran."
+  },
+  "trust": {
+    "verified": "Ti jẹrisi",
+    "estimated": "A ṣe iṣiro",
+    "community": "Agbegbe",
+    "unavailable": "Ko si",
+    "disclaimer": "Alaye le yipada. Ṣayẹwo orisun akọkọ ṣaaju ipinnu pataki.",
+    "source": "Orisun",
+    "lastUpdated": "Imudojuiwọn ikẹhin",
+    "mayBeOutdated": "Alaye yii le ma pe tabi ko pe."
+  },
+  "accessibility": {
+    "skipToContent": "Rekọja si akoonu",
+    "openMenu": "Ṣi akojọ",
+    "closeMenu": "Ti akojọ",
+    "increaseText": "Sọ ọrọ di nla",
+    "highContrast": "Iyatọ giga"
+  }
+}

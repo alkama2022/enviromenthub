@@ -1,0 +1,24 @@
+{
+  "eyebrow": "Bayani kan wuri — ba kan mutane ba",
+  "title": "Me kake son sani?",
+  "subtitle": "Danna abin da kake buƙata. Yi magana idan kana so. Hub zai taimake ka ka fahimci wurin ka yanke shawara.",
+  "searchLabel": "Nemo wuri",
+  "searchPlaceholder": "Gwada \"Wuse 2\", \"Sabon Gari\", \"Ikeja\"…",
+  "voiceHint": "Ko danna makirufo ka yi magana",
+  "recent": "Binciken da aka yi kwanan nan",
+  "examplesTitle": "Gwada misalin wuri",
+  "examplesSubtitle": "Wuraren Najeriya da ke da cikakken bayani",
+  "actions": {
+    "checkPlace": { "title": "Duba Wuri", "desc": "Ka gaya mini game da wuri" },
+    "findHealthcare": { "title": "Nemo Asibiti", "desc": "Asibitoci, shagunan magani" },
+    "findRoute": { "title": "Nemo Hanya", "desc": "Taimake ni in isa can" },
+    "findBusiness": { "title": "Damar Kasuwanci", "desc": "Nuna min dama a wannan yanki" },
+    "findHome": { "title": "Wuri Don Zama", "desc": "Shin yankin yana da kyau don zama?" },
+    "checkEnvironment": { "title": "Yanayin Yau", "desc": "Yanayi, iska, ambaliya" },
+    "emergency": { "title": "Agajin Gaggawa", "desc": "Ƴan sanda, kashe gobara, asibiti kusa" },
+    "ask": { "title": "Tambayi Hub", "desc": "Tambaya da kalmominka" }
+  },
+  "featuresTitle": "Yadda Hub ke taimaka maka",
+  "featuresSubtitle": "Sauƙaƙan bayani mai aminci game da wurare — da harshenka, da murya idan kana so.",
+  "cta": { "scan": "Duba", "askAssistant": "Tambayi mataimaki inda ya kamata ka je" }
+}

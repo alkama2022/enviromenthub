@@ -1,0 +1,24 @@
+{
+  "eyebrow": "Place intelligence — no dey profile person",
+  "title": "Wetin you wan know?",
+  "subtitle": "Tap wetin you need. Talk your question. Hub go help you understand the place.",
+  "searchLabel": "Find place",
+  "searchPlaceholder": "Try \"Wuse 2\", \"Sabon Gari\", \"Ikeja\"…",
+  "voiceHint": "Or press microphone make you talk",
+  "recent": "Wetin you find before",
+  "examplesTitle": "Try example place",
+  "examplesSubtitle": "Naija places wey get full info",
+  "actions": {
+    "checkPlace": { "title": "Check Place", "desc": "Tell me about this place" },
+    "findHealthcare": { "title": "Find Hospital", "desc": "Hospital, clinic, pharmacy" },
+    "findRoute": { "title": "Find Road", "desc": "Help me reach there" },
+    "findBusiness": { "title": "Business Chance", "desc": "Show me better place for business" },
+    "findHome": { "title": "Place to Live", "desc": "This place good to live?" },
+    "checkEnvironment": { "title": "Today Environment", "desc": "Weather, air, flood" },
+    "emergency": { "title": "Emergency Help", "desc": "Police, fire, hospital near you" },
+    "ask": { "title": "Ask Hub", "desc": "Ask with your own mouth" }
+  },
+  "featuresTitle": "How Hub dey help you",
+  "featuresSubtitle": "Simple, trusted info about places — for your language, with voice if you wan.",
+  "cta": { "scan": "Check", "askAssistant": "Ask helper where you suppose go" }
+}

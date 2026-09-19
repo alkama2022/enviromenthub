@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useI18n } from "@/lib/i18n";
+import { VoiceInput, ReadAloud } from "@/components/voice-input";
 import {
   Search,
   Sparkles,
@@ -38,19 +40,20 @@ import {
 import { interpretQuery } from "@/lib/discovery.functions";
 
 export const Route = createFileRoute("/discover")({
+  validateSearch: (search: Record<string, unknown>) => ({ q: (search.q as string) ?? "" }),
   head: () => ({
     meta: [
-      { title: "Ask TerraLens — Find the right place near you" },
+      { title: "Ask Hub — Find the right place near you" },
       {
         name: "description",
         content:
           "Ask in plain language where to go — treatment, a holiday outing, a family restaurant, a quiet park — and get ranked places with a clear explanation of why each one fits.",
       },
-      { property: "og:title", content: "Ask TerraLens — Find the right place near you" },
+      { property: "og:title", content: "Ask Hub — Find the right place near you" },
       {
         property: "og:description",
         content:
-          "Conversational place discovery: describe what you need and get ranked, explained recommendations from the Environment Hub place directory.",
+          "Conversational place discovery: describe what you need and get ranked, explained recommendations from the Hub place directory.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -70,7 +73,9 @@ const EXAMPLES = [
 ];
 
 function DiscoverPage() {
-  const [query, setQuery] = useState("");
+  const { t, easyMode } = useI18n();
+  const search = useSearch({ from: "/discover" }) as { q?: string };
+  const [query, setQuery] = useState(search.q ?? "");
   const [slug, setSlug] = useState(LOCATIONS[0]!.slug);
   const [userCoords, setUserCoords] = useState<[number, number] | null>(null);
   const [geoState, setGeoState] = useState<"idle" | "asking" | "granted" | "denied" | "unsupported">("idle");
@@ -86,6 +91,13 @@ function DiscoverPage() {
     onSuccess: (sq) => setResult(sq),
     onError: (_e, q) => setResult({ ...interpretQueryLocally(q), engine: "rules" }),
   });
+
+  useEffect(() => {
+    if (search.q && search.q.trim()) {
+      mutation.mutate(search.q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const origin = userCoords ?? area.coords;
   const originLabel = userCoords ? "your location" : area.name;
@@ -126,23 +138,20 @@ function DiscoverPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <header className="mb-8">
+    <div id="main-content" className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
+      <header className="mb-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
           <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
-          Conversational place assistant
+          {t("search.title").includes("Hub") ? t("search.title") : "Ask Hub"}
         </p>
-        <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-          Ask Environment Hub where you should go
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Describe what you need in your own words. The assistant works out what you are
-          looking for, searches the place directory for this area, ranks the options and
-          explains why each one is suggested.
-        </p>
+        <h1 className={`mt-3 font-display font-extrabold tracking-tight ${easyMode ? "text-2xl" : "text-3xl sm:text-4xl"}`}>{t("search.title")}</h1>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">{t("search.subtitle")}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <ReadAloud text={`${t("search.title")} ${t("search.subtitle")}`} />
+        </div>
       </header>
 
-      {/* Search */}
+      {/* Search - voice-first */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -156,19 +165,23 @@ function DiscoverPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="What are you looking for?"
-              aria-label="Ask where you should go"
+              placeholder={t("search.placeholder")}
+              aria-label={t("search.placeholder")}
               className="w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
             />
           </div>
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
           >
             {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Sparkles className="h-4 w-4" aria-hidden="true" />}
-            Ask
+            {t("common.action.ask")}
           </button>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <VoiceInput onTranscript={(text) => submit(text)} />
+          <span className="text-xs text-muted-foreground">{t("home.voiceHint")}</span>
         </div>
 
         {/* Area + location */}

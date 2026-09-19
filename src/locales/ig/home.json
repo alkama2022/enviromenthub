@@ -1,0 +1,24 @@
+{
+  "eyebrow": "Ọgụgụ isi ebe — ọ bụghị gbasara ndị mmadụ",
+  "title": "Gịnị ka ị chọrọ ịma?",
+  "subtitle": "Pịa ihe ị chọrọ. Kwuo okwu ma ọ bụrụ na ị chọrọ. Hub ga-enyere gị aka ịghọta ebe ahụ wee kpebie.",
+  "searchLabel": "Chọọ ebe",
+  "searchPlaceholder": "Nwaa \"Wuse 2\", \"Sabon Gari\", \"Ikeja\"…",
+  "voiceHint": "Ma ọ bụ pịa igwe okwu kwuo okwu",
+  "recent": "Nchọta na nso nso a",
+  "examplesTitle": "Nwaa ebe atụ",
+  "examplesSubtitle": "Ebe Naijiria nwere ozi zuru ezu",
+  "actions": {
+    "checkPlace": { "title": "Lelee Ebe", "desc": "Gwa m gbasara ebe" },
+    "findHealthcare": { "title": "Chọta Ụlọ Ọgwụ", "desc": "Ụlọ ọgwụ, ụlọ ahịa ọgwụ" },
+    "findRoute": { "title": "Chọta Ụzọ", "desc": "Nyere m aka iru ebe ahụ" },
+    "findBusiness": { "title": "Ohere Azụmahịa", "desc": "Gosi m ohere na mpaghara a" },
+    "findHome": { "title": "Ebe Obibi", "desc": "Mpaghara a ọ dị mma ibi?" },
+    "checkEnvironment": { "title": "Gburugburu Taa", "desc": "Ihu igwe, ikuku, idei mmiri" },
+    "emergency": { "title": "Enyemaka Mberede", "desc": "Ndị uwe ojii, ọkụ, ụlọ ọgwụ dị nso" },
+    "ask": { "title": "Jụọ Hub", "desc": "Jụọ n'okwu nke gị" }
+  },
+  "featuresTitle": "Otu Hub si enyere gị aka",
+  "featuresSubtitle": "Ozi dị mfe, ntụkwasị obi gbasara ebe — n'asụsụ gị, site n'olu ma ọ bụrụ na ị chọrọ.",
+  "cta": { "scan": "Lelee", "askAssistant": "Jụọ onye enyemaka ebe ị ga-aga" }
+}

@@ -1,0 +1,97 @@
+{
+  "brand": {
+    "name": "Environment Hub",
+    "tagline": "Understand any place before you decide.",
+    "short": "Hub"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Find",
+    "explore": "Explore",
+    "saved": "Saved",
+    "settings": "Settings",
+    "discover": "Ask",
+    "compare": "Compare",
+    "government": "Government",
+    "about": "How we dey do am",
+    "admin": "Admin"
+  },
+  "action": {
+    "search": "Find",
+    "ask": "Ask",
+    "save": "Save",
+    "saved": "Saved",
+    "share": "Share",
+    "call": "Call",
+    "directions": "Directions",
+    "viewDetails": "See details",
+    "tryAgain": "Try again",
+    "goHome": "Go house",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "clear": "Clear",
+    "useMyLocation": "Use my location",
+    "readAloud": "Read am for me",
+    "stopReading": "Stop",
+    "speak": "Talk",
+    "listening": "I dey listen…",
+    "tapToSpeak": "Press to talk"
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "hausa": "Hausa",
+    "yoruba": "Yorùbá",
+    "igbo": "Igbo",
+    "pidgin": "Pidgin",
+    "arabic": "Arabic",
+    "select": "Choose language"
+  },
+  "easyMode": {
+    "label": "Easy Mode",
+    "on": "Easy mode don on",
+    "off": "Easy mode don off",
+    "description": "Bigger text, simple words"
+  },
+  "auth": {
+    "signIn": "Enter",
+    "signOut": "Comot",
+    "savedCount": "{{count}} saved"
+  },
+  "error": {
+    "title": "Something no correct.",
+    "description": "We no fit get this info now.",
+    "tryAgain": "Try again",
+    "goHome": "Go house"
+  },
+  "loading": {
+    "checkingLocation": "We dey check this place…",
+    "gettingWeather": "We dey get weather…",
+    "findingHealthcare": "We dey find hospital near you…",
+    "preparingReport": "We dey prepare report…",
+    "understanding": "We dey understand wetin you talk…",
+    "searching": "We dey search…"
+  },
+  "empty": {
+    "noResults": "We no see anything.",
+    "noSaved": "You never save any place.",
+    "tryDifferent": "Try different search."
+  },
+  "trust": {
+    "verified": "Verified",
+    "estimated": "Estimate",
+    "community": "Community",
+    "unavailable": "No dey",
+    "disclaimer": "Info fit change. Check where e from before you take big decision.",
+    "source": "Source",
+    "lastUpdated": "Last update",
+    "mayBeOutdated": "This info fit no complete or e don old."
+  },
+  "accessibility": {
+    "skipToContent": "Jump go content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "increaseText": "Make text big",
+    "highContrast": "High contrast"
+  }
+}

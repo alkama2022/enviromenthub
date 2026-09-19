@@ -45,5 +45,10 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8080,
+    watch: {
+      // Windows/OneDrive can lock locale JSON briefly, causing EBUSY watch crash (see dev log).
+      // Ignore locales dir for FS watch; locale changes still trigger reload via HMR import.
+      ignored: ["**/src/locales/**", "**/node_modules/**", "**/dist/**"],
+    },
   },
 });

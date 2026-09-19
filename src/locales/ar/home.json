@@ -1,0 +1,51 @@
+{
+  "eyebrow": "Place intelligence — never people profiling",
+  "title": "What do you want to know?",
+  "subtitle": "Tap what you need. Speak your question. Hub will help you understand the place and decide what to do.",
+  "searchLabel": "Search a place",
+  "searchPlaceholder": "Try \"Wuse 2\", \"Sabon Gari\", \"Ikeja\"…",
+  "voiceHint": "Or tap the microphone and speak",
+  "recent": "Recent searches",
+  "examplesTitle": "Try an example place",
+  "examplesSubtitle": "Nigerian locations with full information",
+  "actions": {
+    "checkPlace": {
+      "title": "Check a Place",
+      "desc": "Tell me about a location"
+    },
+    "findHealthcare": {
+      "title": "Find Healthcare",
+      "desc": "Hospitals, clinics, pharmacy"
+    },
+    "findRoute": {
+      "title": "Find a Route",
+      "desc": "Help me get there"
+    },
+    "findBusiness": {
+      "title": "Business Opportunities",
+      "desc": "Show me opportunities in this area"
+    },
+    "findHome": {
+      "title": "Find a Place to Live",
+      "desc": "Is this area good to live?"
+    },
+    "checkEnvironment": {
+      "title": "Today's Environment",
+      "desc": "Weather, air, flood, conditions"
+    },
+    "emergency": {
+      "title": "Emergency Help",
+      "desc": "Police, fire, hospital nearby"
+    },
+    "ask": {
+      "title": "Ask Hub",
+      "desc": "Ask in your own words"
+    }
+  },
+  "featuresTitle": "How Hub helps you",
+  "featuresSubtitle": "Simple, trusted information about places — in your language, by voice if you want.",
+  "cta": {
+    "scan": "Scan",
+    "askAssistant": "Ask the assistant where you should go"
+  }
+}

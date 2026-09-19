@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { BottomNav } from "@/components/bottom-nav";
 import { AuthProvider } from "@/lib/auth";
 import { I18nProvider } from "@/lib/i18n";
 
@@ -137,11 +138,12 @@ function RootComponent() {
         <I18nProvider>
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
-            <main className="flex-1">
+            <main id="main-content" className="flex-1 pb-16 md:pb-0">
               {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
               <Outlet />
             </main>
             <SiteFooter />
+            <BottomNav />
           </div>
         </I18nProvider>
       </AuthProvider>

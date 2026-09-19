@@ -1,0 +1,24 @@
+{
+  "eyebrow": "Imọ nipa ibi — kii ṣe nipa eniyan",
+  "title": "Kini o fẹ mọ?",
+  "subtitle": "Tẹ ohun ti o nilo. Sọrọ ti o ba fẹ. Hub yoo ran ọ lọwọ lati loye ibi naa ki o pinnu.",
+  "searchLabel": "Wa ibi kan",
+  "searchPlaceholder": "Gbiyanju \"Wuse 2\", \"Sabon Gari\", \"Ikeja\"…",
+  "voiceHint": "Tabi bọtini ohun ki o sọrọ",
+  "recent": "Iwadi aipẹ",
+  "examplesTitle": "Gbiyanju apẹẹrẹ ibi",
+  "examplesSubtitle": "Awọn ibi ni Naijiria pẹlu alaye kikun",
+  "actions": {
+    "checkPlace": { "title": "Ṣayẹwo Ibi", "desc": "Sọ fun mi nipa ibi kan" },
+    "findHealthcare": { "title": "Wa Ile-iwosan", "desc": "Ile-iwosan, ile elegbogi" },
+    "findRoute": { "title": "Wa Ọna", "desc": "Ran mi lọwọ lati de ibẹ" },
+    "findBusiness": { "title": "Anfani Iṣowo", "desc": "Fihan anfani ni agbegbe yii" },
+    "findHome": { "title": "Ibi Lati Gbe", "desc": "Ṣe agbegbe yii dara lati gbe?" },
+    "checkEnvironment": { "title": "Ayika Loni", "desc": "Oju ọjọ, afẹfẹ, ikun-omi" },
+    "emergency": { "title": "Iranlọwọ Pajawiri", "desc": "Ọlọpa, ina, ile-iwosan to sunmọ" },
+    "ask": { "title": "Beere lọwọ Hub", "desc": "Beere pẹlu ọrọ tirẹ" }
+  },
+  "featuresTitle": "Bi Hub ṣe n ran ọ lọwọ",
+  "featuresSubtitle": "Alaye rọrun ati igbẹkẹle nipa awọn ibi — ni ede rẹ, pẹlu ohun ti o ba fẹ.",
+  "cta": { "scan": "Ṣayẹwo", "askAssistant": "Beere lọwọ alarannṣe ibi ti o yẹ ki o lọ" }
+}
