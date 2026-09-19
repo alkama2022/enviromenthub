@@ -66,15 +66,17 @@ Rules:
 - If the question is too vague to search well, set needsClarification true, write one short clarifying question and give 3-6 short options. Otherwise set it false, clarifyQuestion null and clarifyOptions [].`;
 
 async function callGateway(query: string, apiKey: string): Promise<unknown | null> {
-  const res = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
+  // Generic OpenAI-compatible gateway. Configure via AI_GATEWAY_URL + AI_GATEWAY_API_KEY.
+  // Falls back to local interpreter if not configured, so the app works standalone.
+  const gatewayUrl = process.env["AI_GATEWAY_URL"] ?? "https://api.openai.com/v1/responses";
+  const res = await fetch(gatewayUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Lovable-API-Key": apiKey,
-      "X-Lovable-AIG-SDK": "fetch",
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "openai/gpt-5.6-sol",
+      model: process.env["AI_MODEL"] ?? "gpt-4o-mini",
       instructions: SYSTEM,
       input: [{ role: "user", content: [{ type: "input_text", text: query }] }],
       stream: true,
@@ -138,7 +140,7 @@ export const interpretQuery = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => z.object({ query: z.string().min(1).max(400) }).parse(data))
   .handler(async ({ data }): Promise<StructuredQuery> => {
     const fallback = interpretQueryLocally(data.query);
-    const apiKey = process.env["LOVABLE_API_KEY"];
+    const apiKey = process.env["AI_GATEWAY_API_KEY"] ?? process.env["OPENAI_API_KEY"];
     if (!apiKey) return fallback;
 
     try {
